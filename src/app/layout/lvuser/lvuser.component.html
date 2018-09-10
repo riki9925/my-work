@@ -1,0 +1,40 @@
+<div [@routerTransition]>
+    <div class="content">
+        <!-- <div class=" form-group text-right">
+            <small>Level User</small>
+        </div> -->
+        <div class="card mb-3  col-md-4">
+            <div class="card-block table-responsive">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="width:50%">Level</td>
+                            <td>
+                                <select class="form-control" results="Level User" (change)="onChange($event)">
+                                    <option selected="">Pilih Level</option>
+                                    <option *ngFor="let i of results" value="{{i.id}}">{{i.level_user | uppercase}}</option>
+                                </select>
+                            </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">Table Level</div>
+            <div class="card-block table-responsive">
+                <table class="table">
+                    <thead class="thead-inverse">
+                        <th>ID</th>
+                        <th>JABATAN</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i of jabatan">
+                            <td>{{i.id_jab}}</td>
+                            <td>{{i.jabatan | uppercase}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

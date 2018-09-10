@@ -1,0 +1,577 @@
+<div [@routerTransition]>
+  <div class="content">
+    <jaspero-alerts [defaultSettings]="options"></jaspero-alerts>
+    <ng-template #addIdentitas let-c="close" let-d="dismiss">
+      <div role="document" class="modal-sm" style="margin-top:-10px">
+        <div class="modal-header">
+          <h4 class="modal-title">Master data</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="TUTUP" >
+          <div class="row">
+            <div class="col-md-10">
+              <table class="table-sm responsive table">
+                <tbody>
+                  <tr>
+                    <td>No Tabungan</td>
+                    <td>
+                      <input disabled #notab class="form-control" type="text" value="{{no}}">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Jenis Tabungan</td>
+                    <td>
+                      <select *ngIf="BtnSimpan"  class="form-control" (change)="onAcc($event)">
+                        <option value="">Pilih jenis tabungan</option>
+                        <option value="">--------------------</option>
+                        <option *ngFor="let i of jenistab" value="{{i.ACC}}">{{i.ACC}}</option>
+                      </select>
+                      <select *ngIf="BtnUbah"  class="form-control" (change)="onAcc($event)">
+                        <option value="{{ACC}}">{{ACC}}</option>
+                        <option value="">--------------------</option>
+                        <option *ngFor="let i of jenistab" value="{{i.ACC}}">{{i.ACC}}</option>
+                      </select>
+                      <select *ngIf="BtnHapus"  class="form-control" (change)="onAcc($event)">
+                        <option disabled value="{{ACC}}">{{ACC}}</option>
+                      </select>
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Cib</td>
+                    <td>
+                      <input #cib class="form-control" type="text" disabled value="{{dta1}}">
+                    </td>
+                    <td class="text-center">
+                      <button class="btn btn-primary fa fa-search btn-sm" (click)="searchpjb(cib)"></button>
+                      <ng-template #cib let-c="close" let-d="dismiss">
+                        <div role="document" class="modal-sm">
+                          <div class="modal-header">
+                            <h4 class="modal-title">
+                              <input class="form-control" type="text" [(ngModel)]="cari" placeholder="Search" style="width:100%;">
+                            </h4>
+                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div>
+                              <div class="table-responsive" style="background:#cccccc;">
+                                <table class="table table-sm">
+                                  <thead>
+                                    <th style="width:20%">Cib</th>
+                                    <th>Nama</th>
+                                    <th>Alamat</th>
+                                    <th></th>
+                                  </thead>
+                                </table>
+                              </div>
+                              <div class="table-responsive" style="background:#cccccc;height:200px">
+                                <table class="table table-hover table-sm">
+                                  <tbody>
+                                    <tr *ngFor="let i of datacib | filter:cari">
+                                      <td style="width:20%">
+                                        <input class="form-control" #dta1 type="text" value="{{i.CIB}}" style="background:transparent" disabled>
+                                      </td>
+                                      <td>
+                                        <input #dta2 class="form-control" type="text" value="{{i.NAMA}}" style="background:transparent" disabled>
+                                      </td>
+                                      <td>
+                                        <input #dta3 class="form-control" type="text" value="{{i.ALAMAT}}" style="background:transparent" disabled>
+                                      </td>
+                                      <td class="text-right">
+                                        <button class="btn btn-info fa fa-check" (click)="isi($event,dta1.value, dta2.value, dta3.value)" (click)="c('Close click')"></button>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Nama</td>
+                    <td>
+                      <input #nama class="form-control" type="text" name="ket" id="ket" value="{{dta2}}" disabled>
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Instansi/grup</td>
+                    <td>
+                      <input #grup disabled class="form-control" type="number" value="{{grup}}">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Alamat</td>
+                    <td>
+                      <textarea style="height: 45px;" disabled #alamat class="form-control" type="number" value="{{dta3}}"></textarea>
+                    </td>
+
+                  </tr>
+
+                  <tr>
+                    <td>Tgl Buka</td>
+                    <td>
+                      <input disabled  class="form-control" type="text" value="{{tglbuka | date:'dd/MM/yyyy'}}">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Tgl Aktif</td>
+                    <td>
+                      <input disabled  class="form-control" type="text" value="{{tglaktif | date:'dd/MM/yyyy'}}">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Debet</td>
+                    <td>
+                      <input disabled  class="form-control text-right" type="text" value="{{debet}}">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Kredit</td>
+                    <td>
+                      <input disabled  class="form-control text-right" type="text" value="{{kredit}}">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Saldo blokir</td>
+                    <td>
+                      <input disabled  class="form-control text-right" type="text" value="{{blokir}}">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Saldo</td>
+                    <td>
+                      <input disabled class="form-control text-right" type="text" value="{{saldo}}">
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-body" *ngIf="BUKA" >
+          <div class="row">
+            <div class="col-md-10">
+              <table class="table-sm responsive table">
+                <tbody>
+                  <tr>
+                    <td>No Tabungan</td>
+                    <td>
+                      <input disabled #notab class="form-control" type="text" value="{{no}}">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Jenis Tabungan</td>
+                    <td>
+                      <select *ngIf="BtnSimpan"  class="form-control" (change)="onAcc($event)">
+                        <option value="">Pilih jenis tabungan</option>
+                        <option value="">--------------------</option>
+                        <option *ngFor="let i of jenistab" value="{{i.ACC}}">{{i.ACC}}</option>
+                      </select>
+                      <select *ngIf="BtnUbah"  class="form-control" (change)="onAcc($event)">
+                        <option value="{{ACC}}">{{ACC}}</option>
+                        <option value="">--------------------</option>
+                        <option *ngFor="let i of jenistab" value="{{i.ACC}}">{{i.ACC}}</option>
+                      </select>
+                      <select *ngIf="BtnHapus"  class="form-control" (change)="onAcc($event)">
+                        <option disabled value="{{ACC}}">{{ACC}}</option>
+                      </select>
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Cib</td>
+                    <td>
+                      <input #cib class="form-control" type="text" disabled value="{{dta1}}">
+                    </td>
+                    <td class="text-center">
+                      <button class="btn btn-primary fa fa-search btn-sm" (click)="searchpjb(cib)"></button>
+                      <ng-template #cib let-c="close" let-d="dismiss">
+                        <div role="document" class="modal-sm">
+                          <div class="modal-header">
+                            <h4 class="modal-title">
+                              <input class="form-control" type="text" [(ngModel)]="cari" placeholder="Search" style="width:100%;">
+                            </h4>
+                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div>
+                              <div class="table-responsive" style="background:#cccccc;">
+                                <table class="table table-sm">
+                                  <thead>
+                                    <th style="width:20%">Cib</th>
+                                    <th>Nama</th>
+                                    <th>Alamat</th>
+                                    <th></th>
+                                  </thead>
+                                </table>
+                              </div>
+                              <div class="table-responsive" style="background:#cccccc;height:200px">
+                                <table class="table table-hover table-sm">
+                                  <tbody>
+                                    <tr *ngFor="let i of datacib | filter:cari">
+                                      <td style="width:20%">
+                                        <input class="form-control" #dta1 type="text" value="{{i.CIB}}" style="background:transparent" disabled>
+                                      </td>
+                                      <td>
+                                        <input #dta2 class="form-control" type="text" value="{{i.NAMA}}" style="background:transparent" disabled>
+                                      </td>
+                                      <td>
+                                        <input #dta3 class="form-control" type="text" value="{{i.ALAMAT}}" style="background:transparent" disabled>
+                                      </td>
+                                      <td class="text-right">
+                                        <button class="btn btn-info fa fa-check" (click)="isi($event,dta1.value, dta2.value, dta3.value)" (click)="c('Close click')"></button>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Nama</td>
+                    <td>
+                      <input #nama class="form-control" type="text" name="ket" id="ket" value="{{dta2}}" disabled>
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Instansi/grup</td>
+                    <td>
+                      <input #grup disabled class="form-control" type="number" value="{{grup}}">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Alamat</td>
+                    <td>
+                      <textarea style="height: 45px;" disabled #alamat class="form-control" type="number" value="{{dta3}}"></textarea>
+                    </td>
+
+                  </tr>
+
+                  <tr>
+                    <td>Tgl Buka</td>
+                    <td>
+                      <input disabled  class="form-control" type="text" value="{{tglbuka | date:'dd/MM/yyyy'}}">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Tgl Aktif</td>
+                    <td>
+                      <input disabled  class="form-control" type="text" value="{{tglaktif | date:'dd/MM/yyyy'}}">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Debet</td>
+                    <td>
+                      <input  class="form-control text-right" type="text" currencyMask [(ngModel)]="debet">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Kredit</td>
+                    <td>
+                      <input   class="form-control text-right" type="text" value="{{kredit}}">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Saldo blokir</td>
+                    <td>
+                      <input disabled  class="form-control text-right" type="text" currencyMask [(ngModel)]="blokir">
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>Saldo</td>
+                    <td>
+                      <input #SALDO class="form-control text-right" type="text" currencyMask [(ngModel)]="saldo">
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer" style="background:white">
+
+          <button *ngIf="BtnDetail" type="button" class="btn btn-primary" (click)="btnMutasi(bisaaa)" (click)="c('Close click')">Mutasi saldo</button>
+          <button *ngIf="BtnSimpan" type="button" class="btn btn-primary" (click)="bukan(yesorno)" (click)="c('Close click')">Simpan</button>
+          <button *ngIf="BtnUbah" type="button" class="btn btn-primary" (click)="bukan(yesorno)" (click)="c('Close click')"> Update</button>
+          <button *ngIf="BtnHapus" type="button" class="btn btn-primary" (click)="bukan(yesorno)" (click)="c('Close click')">Hapus</button>
+          <button *ngIf="BtnApp" type="button" class="btn btn-primary" (click)="bukan(yesorno)" (click)="c('Close click')">Approve</button>
+          <!-- <button type="button" class="btn btn-danger" (click)="c('Close click')">Keluar</button> -->
+          <ng-template #yesorno let-c="close" let-d="dismiss">
+            <div role="document" class="modal-logout">
+              <div class="modal-header">
+                <div class="col-lg-12 text-center">
+                  <h4 class="modal-title">Konfirmasi</h4>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="text-center font-costum">
+                  <h2 *ngIf="BtnSimpan">Yakin menyimpan data ?</h2>
+                  <h2 *ngIf="BtnUbah">Yakin memperbarui data ?</h2>
+                  <h2 *ngIf="BtnHapus">Yakin menghapus data ?</h2>
+                  <h2 *ngIf="BtnApp">Approve data</h2>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="col-lg-12 text-center">
+                  <button type="button" class="btn btn-danger" (click)="c('Close click')" style="width:100px">Batal</button>
+                  <button *ngIf="BtnSimpan" type="button" class="btn btn-success" (click)="tambah($event, notab.value, cib.value, nama.value, alamat.value)"
+                    style="width:100px" (click)="c('Close click')">Ok</button>
+                  <button *ngIf="BtnHapus" type="button" class="btn btn-success" (click)="delete()" (click)="c('Close click')" style="width:100px">Ok</button>
+                  <button *ngIf="BtnUbah" type="button" class="btn btn-success" (click)="update($event)"
+                    style="width:100px" (click)="c('Close click')">Ok</button>
+                  <button *ngIf="BtnApp" type="button" class="btn btn-success" (click)="approve()" (click)="c('Close click')" style="width:100px">Ok</button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template #bisaaa let-c="close" let-d="dismiss">
+              <div role="document" class="modal-lg">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <input class="form-control" type="text" [(ngModel)]="cariTranstab" placeholder="Search" style="width:100%;">
+                      </h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                      
+                      <div class="table-responsive" style="background:#cccccc;height:400px">
+                        <table class="table table-hover table-sm">
+                            <thead>
+                                <th>Tanggal</th>
+                                <th>No Transaksi</th>
+                                <th>No Tabungan</th>
+                                <th>Keterangan</th>
+                                <th>Berita</th>
+                                <th>Debit</th>
+                                <th>Kredit</th>
+                                <th>Saldo</th>
+                              </thead>
+                          <tbody>
+                            <tr *ngFor="let i of transtab | filter:cariTranstab">
+                              <td>{{i.TANGGAL | date:'dd/MM/yyyy'}}</td>
+                              <td>{{i.NTRANS}}</td>
+                              <td>{{i.NOTAB}}</td>
+                              <td>{{i.KETERANGAN}}</td>
+                              <td>{{i.BERITA}}</td>
+                              <td align="right">{{i.DEBET | number}}</td>
+                              <td align="right">{{i.KREDIT | number}}</td>
+                              <td align="right">{{i.SALDO | number}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                <div class="modal-footer">
+                  <div>
+                    <button type="button" class="btn btn-danger" (click)="c('Close click')" style="width:100px">Tutup</button>
+                    <button *ngIf="BtnSimpan" type="button" class="btn btn-success" (click)="tambah($event, notab.value, cib.value, nama.value, alamat.value, tglbuka.value, tglaktif.value, debet.value, kredit.value, blokir.value, saldo.value)"
+                      style="width:100px" (click)="c('Close click')">Ok</button>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="card mb-3">
+      <div class="card-block">
+        <table class="table-sm">
+          <tbody>
+            <tr>
+              <td style="width:10%;">Urut</td>
+              <td>
+                <select class="form-control" (change)="urutby($event)">
+                  <option value="">Urut Berdasarkan</option>
+                  <option selected value="NOTAB">No Tabungan</option>
+                  <option value="NAMA">Nama</option>
+                </select>
+              </td>
+              <td>Instansi</td>
+              <td>
+                <select class="form-control" (change)="instan($event)">
+                  <option selected value="">Pilih Instansi/Grup</option>
+                  <option *ngFor="let i of instansi | orderBy: orderInstansi" value="{{i.KI}}">{{i.NAMA_INSTANSI}}</option>
+                </select>
+              </td>
+              <td class="text-right">
+
+
+              </td>
+
+              <!-- <td rowspan="2">
+                      <button class="btn btn-primary">
+                        <i class="fa fa-check"></i> Approve</button>
+                    </td> -->
+            </tr>
+            <tr>
+              <td>Status</td>
+              <td>
+                <select class="form-control" (change)="urutST($event)">
+                  <option value="">Status Berdasarkan</option>
+                  <option value="0">Belum Aktif</option>
+                  <option selected value="2">Aktif</option>
+                  <option value="9">Tutup</option>
+                </select>
+              </td>
+              <td>Jenis Tabungan</td>
+              <td>
+                <select class="form-control" (change)="onJenistab($event)">
+                  <option value="">Pilih jenis tabungan</option>
+                  <option class="text-center" value="">--------------------</option>
+                  <option *ngFor="let i of jenistab" value="{{i.ACC}}">{{i.ACC}}</option>
+                </select>
+              </td>
+              <td>
+                <button class="btn btn-primary" ngbTooltip="Refresh data" style="width:47px" (click)="restart()">
+                  <i class="fa fa-refresh"></i>
+                </button>
+
+              </td>
+              <td>
+                <button class="btn btn-primary fa fa-plus" style="width:47px" ngbTooltip="Tambah data" (click)="buka(addIdentitas)"></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card col-md-12">
+      <div class="card-header">Master Data
+        <input hidden class="form-control" type="text" [(ngModel)]="cari" placeholder="Search" style="width:100%;">
+        <input hidden class="form-control" type="text" [(ngModel)]="cari2" placeholder="Search" style="width:100%;">
+      </div>
+      <div class="card-block table-responsive">
+        <div class="row">
+          <div class="col-md-12" style="height:220px">
+            <table class="table responsive table-sm">
+              <thead>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Grup</th>
+                <th>Jenis</th>
+                <th >Keterangan</th>
+                <th>Tgl Buka</th>
+                <th>Tgl Aktif</th>
+                <th>Debet</th>
+                <th>Kredit</th>
+                <th>Saldo</th>
+                <th>ST</th>
+              </thead>
+              <tbody *ngIf="asli" >
+                <tr *ngFor="let i of data | filter:cari | filter:cari2 | orderBy: order | orderBy: orderst : revers">
+                  <td>{{i.NOTAB}}</td>
+                  <td>{{i.cib.NAMA}}</td>
+                  <td>{{i.cib.KI}}</td>
+                  <td>{{i.ACC}}</td>
+                  <td>{{i.account.KETERANGAN}}</td>
+                  <td>{{i.TGLBUKA | date:'dd/MM/yyyy'}}</td>
+                  <td>{{i.TGLAKTIF | date:'dd/MM/yyyy'}}</td>
+                  <td align="right">{{i.DEBET}}</td>
+                  <td align="right">{{i.KREDIT}}</td>
+                  <td align="right">{{getSum('i.SALDO') | number}}</td>
+                  <td align="right">{{i.ST}}</td>
+                  <td class="text-right">
+                    <input #id type="text" value="{{i._id}}" hidden>
+                    <input #notab type="text" value="{{i.NOTAB}}" hidden>
+                    <input #cib type="text" value="{{i.cib.CIB}}" hidden>
+                    <input #nama type="text" value="{{i.cib.NAMA}}" hidden>
+                    <input #alamat type="text" value="{{i.ALAMAT}}" hidden>
+                    <input #ki type="text" value="{{i.cib.KI}}" hidden>
+                    <input #acc type="text" value="{{i.ACC}}" hidden>
+                    <input #tglbuka type="text" value="{{i.TGLBUKA}}" hidden>
+                    <input #tglaktif type="text" value="{{i.TGLAKTIF}}" hidden>
+                    <input #debet type="text" value="{{i.DEBET}}" hidden>
+                    <input #kredit type="text" value="{{i.KREDIT}}" hidden>
+                    <input #blokir type="text" value="{{i.BLOKIR}}" hidden>
+                    <input #saldo type="text" value="{{i.SALDO}}" hidden>
+                    <input #st type="text" value="{{i.ST}}" hidden>
+                    <!-- <button class="fa fa-info btn btn-warning" ngbTooltip="Detail data" (click)="detail(addIdentitas, $event, id.value, notab.value, cib.value, nama.value, ki.value, acc.value, alamat.value, tglbuka.value, tglaktif.value, debet.value, kredit.value, blokir.value, saldo.value, st.value)"></button>
+                    <button class="fa fa-edit btn btn-primary" ngbTooltip="Edit data" (click)="edit(addIdentitas, $event, id.value, notab.value, cib.value, nama.value, ki.value, acc.value, alamat.value, tglbuka.value, tglaktif.value, debet.value, kredit.value, blokir.value, saldo.value, st.value)"></button>
+                    <button class="btn btn-danger fa fa-trash" ngbTooltip="Hapus data" (click)="hapus(addIdentitas, $event, id.value, notab.value, cib.value, nama.value, ki.value, acc.value, alamat.value, tglbuka.value, tglaktif.value, debet.value, kredit.value, blokir.value, saldo.value, st.value)"></button>
+                    <button class="btn btn-success fa fa-check" ngbTooltip="Approve data" (click)="bukaApp(addIdentitas, $event, id.value, notab.value, cib.value, nama.value, ki.value, acc.value, alamat.value, tglbuka.value, tglaktif.value, debet.value, kredit.value, blokir.value, saldo.value, st.value)"></button>
+                    <button class="btn btn-danger fa fa-ban" ngbTooltip="Nonaktif data" (click)="nonaktif($event, id.value)"></button> -->
+                    <div class="col">
+                      <div ngbDropdown class="d-inline-block">
+                          <button class="btn btn-primary" id="dropdownMenu1" ngbDropdownToggle></button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenu1" style="left:-207;">
+                              <button class="fa fa-info btn btn-warning" ngbTooltip="Detail data" (click)="detail(addIdentitas, $event, id.value, notab.value, cib.value, nama.value, ki.value, acc.value, alamat.value, tglbuka.value, tglaktif.value, debet.value, kredit.value, blokir.value, saldo.value, st.value)"></button>
+                              <button class="fa fa-edit btn btn-primary" ngbTooltip="Edit data" (click)="edit(addIdentitas, $event, id.value, notab.value, cib.value, nama.value, ki.value, acc.value, alamat.value, tglbuka.value, tglaktif.value, debet.value, kredit.value, blokir.value, saldo.value, st.value)"></button>
+                                <button class="btn btn-danger fa fa-trash" ngbTooltip="Hapus data" (click)="hapus(addIdentitas, $event, id.value, notab.value, cib.value, nama.value, ki.value, acc.value, alamat.value, tglbuka.value, tglaktif.value, debet.value, kredit.value, blokir.value, saldo.value, st.value)"></button>
+                              <button class="btn btn-success fa fa-check" ngbTooltip="Approve data" (click)="bukaApp(addIdentitas, $event, id.value, notab.value, cib.value, nama.value, ki.value, acc.value, alamat.value, tglbuka.value, tglaktif.value, debet.value, kredit.value, blokir.value, saldo.value, st.value)"></button>
+                                <button class="btn btn-danger fa fa-ban" ngbTooltip="Nonaktif data" (click)="nonaktif($event, id.value)"></button>
+                          </div>
+                      </div>
+                  </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="kebalikan" >
+                <tr *ngFor="let i of datab | filter:cari | filter:cari2 | orderBy: order | orderBy: orderst : revers">
+                  <td>{{i.mastertab.NOTAB}}</td>
+                  <td>{{i.NAMA}}</td>
+                  <td>{{i.KI}}</td>
+                  <td>{{i.ACC}}</td>
+                  <td>{{i.account.KETERANGAN}}</td>
+                  <td>{{i.mastertab.TGLBUKA}}</td>
+                  <td>{{i.mastertab.TGLAKTIF}}</td>
+                  <td>{{i.mastertab.DEBET}}</td>
+                  <td>{{i.mastertab.KREDIT}}</td>
+                  <td>{{i.mastertab.SALDO | number}}</td>
+                  <td>{{i.mastertab.ST}}</td>
+                  <td class="text-right">
+                    <button class="fa fa-edit btn btn-primary" ngbTooltip="Edit data" (click)="edit(addIdentitas, $event, id.value, notab.value, cib.value, nama.value, ki.value, acc.value, alamat.value, tglbuka.value, tglaktif.value, debet.value, kredit.value, blokir.value, saldo.value, st.value)"></button>
+                    <button class="btn btn-danger fa fa-trash" ngbTooltip="Hapus data" (click)="hapus(addIdentitas, $event, id.value, notab.value, cib.value, nama.value, ki.value, acc.value, alamat.value, tglbuka.value, tglaktif.value, debet.value, kredit.value, blokir.value, saldo.value, st.value)"></button>
+                    <button class="btn btn-success fa fa-check" ngbTooltip="Approve data" (click)="bukaApp(addIdentitas, $event, id.value, notab.value, cib.value, nama.value, ki.value, acc.value, alamat.value, tglbuka.value, tglaktif.value, debet.value, kredit.value, blokir.value, saldo.value, st.value)"></button>
+                    <button class="btn btn-danger fa fa-ban" ngbTooltip="Nonaktif data" (click)="nonaktif($event, id.value)"></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+          <table class="table responsive table-sm">
+            <thead>
+              <th style="width:110px">Total saldo</th>
+              <th >Rp : </th>
+              <th class="text-right" style="padding-right: 27.5%;">{{TOTAL | number}}</th>
+            </thead>
+          </table>
+        </div>
+    </div>
+  </div>
+</div>

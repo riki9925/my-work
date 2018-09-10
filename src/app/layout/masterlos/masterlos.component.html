@@ -1,0 +1,11 @@
+<div [@routerTransition] class="container">
+    <div class="content">
+        <div class="text-right form-group">
+            <small>Master Los</small>
+        </div>
+        <div class="card mb-3">
+            <ng2-smart-table [settings]="settings" [source]="masterlos" (deleteConfirm)="onDeleteConfirm($event)">
+            </ng2-smart-table>
+        </div>
+    </div>
+</div>

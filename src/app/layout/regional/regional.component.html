@@ -1,0 +1,12 @@
+<div [@routerTransition]>
+    <div class="content">
+        <div class="text-right form-group">
+            <small>Regional</small>
+        </div>
+        <div class="card mb-3">
+                <ng2-smart-table [settings]="settings" [source]="results" (deleteConfirm)="onDeleteConfirm($event)">
+                    </ng2-smart-table>
+
+        </div>
+    </div>
+</div>

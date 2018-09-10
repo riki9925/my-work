@@ -1,0 +1,33 @@
+<div [@routerTransition]>
+    <h5 class="text-muted">Kecamatan</h5>
+</div>
+<div class="row">
+    <div class="col-centered">
+        <table class="table table-sm">
+            <tbody>
+                <tr>
+                    <td>
+                        <div>
+                            <label>Propinsi</label>
+                            <select class="form-control" (change)="onChange($event)">
+                                <option *ngFor="let i of propinsi" value="{{i.ID_PROP}}">{{i.NAMA_PROPINSI | uppercase}}</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Kabupanen</label>
+                            <select class="form-control" (change)="Change($event)">
+                                <option *ngFor="let i of kabupaten" value="{{i.ID_KAB}}">{{i.NAMA_KABUPATEN | uppercase}}</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td style="width:80%">
+                        <div>
+                            <ng2-smart-table [settings]="settings" [source]="results" (deleteConfirm)="onDeleteConfirm($event)">
+                            </ng2-smart-table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

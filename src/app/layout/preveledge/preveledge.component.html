@@ -1,0 +1,95 @@
+<div [@routerTransition]>
+    <div class="content">
+        <!-- <div class="text-right form-group">
+            <small>Preveledge</small>
+        </div> -->
+        <div class="card mb-3  col-md-3">
+            <div class="card-block table-responsive">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="width:45%">UID</td>
+                            <td class="text-right">
+                                <select class="form-control" (change)="cekUid($event)">
+                                    <option selected="">Pilih UID</option>
+                                    <option *ngFor="let i of uid" value="{{i.UID}}">{{i.UID | uppercase}}</option>
+                                </select>
+                            </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card mb-3" *ngIf="form">
+            <div class="card-header">Preveledge</div>
+            <div class="card-block table-responsive">
+                <div class="row" *ngIf="form">
+                    <div class="col-md-6">
+                        <table class="table table-sm">
+                            <tbody *ngFor="let i of uidForm">
+                                <tr>
+                                    <td>
+                                        <input class="form-control" disabled type="text" name="nama" id="nama" placeholder="{{i.UID}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input class="form-control" disabled type="text" name="nama" id="nama" placeholder="{{i.NAMA}}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Level</label>
+                                        <select class="form-control" (change)="onChange($event)">
+                                            <option *ngFor="let i of results" value="{{i.id}}">{{i.level_user | uppercase}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Jabatan</label>
+                                        <select class="form-control" (change)="Change($event)">
+                                            <option *ngFor="let i of jabatan" value="{{i.id}}">{{i.jabatan | uppercase}}</option>
+                                        </select>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-6">
+                        <table class="table table-sm">
+                            <tbody *ngFor="let i of uidForm">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="administrato" id="administrator">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="setting" id="setting">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="" id="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="" id="">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div *ngIf="form">
+                    <div class="button-save">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div [@routerTransition]>
+    <div class="content">
+        <div class="text-right form-group">
+            <small>Register</small>
+        </div>
+        <!-- <div class="card mb-3  col-md-3">
+            <div class="card-block table-responsive">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="width:45%">UID</td>
+                            <td class="text-right">
+                                <select class="form-control" (change)="cekUid($event)">
+                                    <option selected="">Pilih UID</option>
+                                    <option *ngFor="let i of uid" value="{{i.UID}}">{{i.UID | uppercase}}</option>
+                                </select>
+                            </td>
+                    </tbody>
+                </table>
+            </div>
+        </div> -->
+        <div class="card mb-3">
+            <div class="card-header">Registrasi</div>
+            <div class="card-block table-responsive">
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-sm">
+                            <tbody >
+                                <tr>
+                                    <td>
+                                        <input class="form-control"  type="text" name="nama" id="nama" placeholder="Uid">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input class="form-control"  type="text" name="nama" id="nama" placeholder="Nama">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Level</label>
+                                        <select class="form-control" (change)="onChange($event)">
+                                            <option *ngFor="let i of results" value="{{i.id}}">{{i.level_user | uppercase}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Jabatan</label>
+                                        <select class="form-control" (change)="Change($event)">
+                                            <option *ngFor="let i of jabatan" value="{{i.id}}">{{i.jabatan | uppercase}}</option>
+                                        </select>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-6">
+                        <table class="table table-sm">
+                            <tbody >
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="administrato" id="administrator"> Administrator
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="setting" id="setting"> Setting
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="monitoring" id="monitoring"> Monitoring
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="dashboard_maps" id="dashboard_maps">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <div class="button-save">
+                        <button type="submit" class="btn btn-primary">Accept</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+<div [@routerTransition]>
+    <div class="content">
+        <jaspero-alerts [defaultSettings]="settings"></jaspero-alerts>
+        <div class="form-group">
+            <button class="btn btn-primary fa fa-plus" (click)="open(addGolongan)"> Baru</button>
+            <ng-template #addGolongan let-c="close" let-d="dismiss">
+                    <div role="document" class="modal-sm">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Golongan</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table responsive">
+                        <tbody>
+                            <tr>
+                                <td>NO</td>
+                                <td>
+                                    <input #no class="form-control" type="text" name="no" id="no" placeholder="NO">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Golongan</td>
+                                <td>
+                                    <input #golongan class="form-control" type="text" name="golongan" id="golongan" placeholder="Golongan">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Pangkat</td>
+                                <td>
+                                    <input #pangkat class="form-control" type="text" name="pangkat" id="pangkat" placeholder="Pangkat">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Pokok</td>
+                                <td>
+                                    <input #pokok class="form-control" type="text" name="pokok" id="pokok" placeholder="Pokok">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Wajib</td>
+                                <td>
+                                    <input #wajib class="form-control" type="text" name="wajib" id="wajib" placeholder="Wajib">
+                                </td>
+                            </tr>
+
+                            <!-- <tr>
+                                    <td>Cif</td>
+                                    <td>
+                                        <input #cif class="form-control" type="text" name="cif" id="cif" placeholder="Cif">
+                                    </td>
+                                </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success fa fa-save" (click)="tambah($event, no.value, golongan.value, pangkat.value, pokok.value, wajib.value)" (click)="c('Close click')"> Simpan</button>
+                    <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
+                </div>
+                    </div>
+            </ng-template>
+        </div>
+                <div class="row">
+                        <div class="col-md-6">
+                        <table class="table1">
+                            <tr>
+                                <th width="50px">No</th>
+                                <th>Golongan</th>
+                                <th>Pangkat</th>
+                                <th>Pokok</th>
+                                <th>Wajib</th>
+                                
+                                <!-- <th>Cif</th> -->
+                                <th class="text-right" style="width:160px"></th>
+                            </tr>
+                            <tbody>
+                                <tr *ngFor="let i of golongan">
+                                    <td>{{i.NO}}</td>
+                                    <td>{{i.GOLONGAN}}</td>
+                                    <td>{{i.PANGKAT}}</td>
+                                    <td>{{i.POKOK}}</td>
+                                    <td>{{i.WAJIB}}</td>
+                                    <!-- <td>{{i.CIF}}</td> -->
+                                    <td class="text-right">
+                                        <button class="fa fa-edit btn btn-sm btn-primary" (click)="edit(Edit)"></button>
+                                        <ng-template #Edit let-c="close" let-d="dismiss">
+                                                <div role="document" class="modal-sm">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Edit</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table responsive">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>NO</td>
+                                                            <td>
+                                                                <input #no class="form-control" type="text" name="no" id="no" value="{{i.NO}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Golongan</td>
+                                                            <td>
+                                                                <input #golongan class="form-control" type="text" name="golongan" id="golongan" value="{{i.GOLONGAN}}">
+                                                                <input #id type="text" name="id" id="id" value="{{i._id}}" hidden>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Pangkat</td>
+                                                            <td>
+                                                                <input #pangkat class="form-control" type="text" name="pangkat" id="pangkat" value="{{i.PANGKAT}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Pokok</td>
+                                                            <td>
+                                                                <input #pokok class="form-control" type="text" name="pokok" id="pokok" value="{{i.POKOK}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Wajib</td>
+                                                            <td>
+                                                                <input #wajib class="form-control" type="text" name="wajib" id="wajib" value="{{i.WAJIB}}">
+                                                            </td>
+                                                        </tr>
+                                                        <!-- <tr>
+                                                            <td>Cif</td>
+                                                            <td>
+                                                                <input class="form-control" type="text" name="cif" id="cif" value="{{i.CIF}}">
+                                                            </td>
+                                                        </tr> -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success fa fa-save" (click)="update($event, no.value, golongan.value, id.value,pangkat.value, pokok.value, wajib.value)"
+                                                    (click)="c('Close click')"> Update</button>
+                                                <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
+                                            </div>
+                                            </div>
+                                        </ng-template>
+                                        <button class="btn btn-sm btn-danger fa fa-trash" (click)="hapus(Hapus)"></button>
+                                        <ng-template #Hapus let-c="close" let-d="dismiss">
+                                                <div role="document" class="modal-sm">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Pemberitahuan</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Yakin menghapus data {{i.GOLONGAN}} ?</p>
+                                                <input #golongan type="text" name="id" id="id" value="{{i.GOLONGAN}}" hidden>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Batal</button>
+                                                <button type="button" class="btn btn-primary" (click)="delete($event, golongan.value)" (click)="c('Close click')">OK</button>
+                                            </div>
+                                                </div>
+                                        </ng-template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>

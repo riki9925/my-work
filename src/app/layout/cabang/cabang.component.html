@@ -1,0 +1,233 @@
+<div [@routerTransition]>
+    <div class="content">
+        <jaspero-alerts [defaultSettings]="settings"></jaspero-alerts>
+        <div class="form-group">
+            <button class="btn btn-primary fa fa-plus" (click)="open(addIdentitas)"> Baru</button>
+            <ng-template #addIdentitas let-c="close" let-d="dismiss">
+                    <div role="document" class="modal-lg">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Cabang</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table responsive table-sm">
+                        <tbody>
+                            <tr>
+                                <td>IDREG</td>
+                                <td>
+                                    <input #idreg class="form-control" type="text" name="idreg" id="idreg" placeholder="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>IDCAB</td>
+                                <td>
+                                    <input #idcab class="form-control" type="text" name="idcab" id="idcab" placeholder="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nama Cabang</td>
+                                <td>
+                                    <input #namacab class="form-control" type="text" name="namacab" id="namacab" placeholder="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Alamat Cabang</td>
+                                <td>
+                                    <input #alamatcab class="form-control" type="text" name="alamatcab" id="alamatcab" placeholder="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Telepon Cabang</td>
+                                <td>
+                                    <input #teleponcab class="form-control" type="text" name="teleponcab" id="teleponcab" placeholder="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nama PIC</td>
+                                <td>
+                                    <input #namapic class="form-control" type="text" name="namapic" id="namapic" placeholder="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Telepon PIC</td>
+                                <td>
+                                    <input #teleponpic class="form-control" type="text" name="teleponpic" id="teleponpic" placeholder="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Email PIC</td>
+                                <td>
+                                    <input #emailpic class="form-control" type="text" name="emailpic" id="emailpic" placeholder="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Longitude</td>
+                                <td>
+                                    <input #longitude class="form-control" type="text" name="longitude" id="longitude" placeholder="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Lattitude</td>
+                                <td>
+                                    <input #lattitude class="form-control" type="text" name="lattitude" id="lattitude" placeholder="">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success fa fa-save" (click)="tambah($event, idreg.value, idcab.value, namacab.value, alamatcab.value, teleponcab.value, namapic.value, teleponpic.value, emailpic.value, longitude.value, lattitude.value)"
+                        (click)="c('Close click')"> Simpan</button>
+                    <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
+                </div>
+                    </div>
+            </ng-template>
+        </div>
+        <div class="card mb-3 col-md-12">
+            <div class="card-header">Data Cabang</div>
+            <div class="card-block table-responsive">
+                <div class="row">
+                    <div class="col-md-12" style="height:340px;">
+                        <table class="table table-sm">
+                            <thead>
+                                <th>IDREG</th>
+                                <th>IDCAB</th>
+                                <th>Nama Cabang</th>
+                                <th>Alamat Cabang</th>
+                                <th>Telepon Cabang</th>
+                                <th>Nama PIC</th>
+                                <th>Telepon PIC</th>
+                                <th>Email PIC</th>
+                                <th>Longitude</th>
+                                <th>Lattitude</th>
+                                <th class="text-right" style="width:160px"></th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let i of data">
+                                    <td>{{i.IDREG}}</td>
+                                    <td>{{i.IDCAB}}</td>
+                                    <td>{{i.NAMA_CABANG}}</td>
+                                    <td>{{i.ALAMAT_CABANG}}</td>
+                                    <td>{{i.TELEPON_CABANG}}</td>
+                                    <td>{{i.NAMA_PIC}}</td>
+                                    <td>{{i.TELEPON_PIC}}</td>
+                                    <td>{{i.E_MAIL_PIC}}</td>
+                                    <td>{{i.LONGITUDE}}</td>
+                                    <td>{{i.LATTITUDE}}</td>
+                                    <!-- <td>{{i.CIF}}</td> -->
+                                    <td class="text-right">
+                                        <button class="fa fa-edit btn btn-primary" (click)="edit(Edit)"></button>
+                                        <ng-template #Edit let-c="close" let-d="dismiss">
+                                                <div role="document" class="modal-lg">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Edit</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-sm responsive">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>IDREG</td>
+                                                            <td>
+                                                                <input #idreg class="form-control" type="text" name="idreg" id="idreg" value="{{i.IDREG}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>IDCAB</td>
+                                                            <td>
+                                                                <input #idcab class="form-control" type="text" name="idcab" id="idcab" value="{{i.IDCAB}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Cabang</td>
+                                                            <td>
+                                                                <input #namacab class="form-control" type="text" name="namacab" id="namacab" value="{{i.NAMA_CABANG}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat Cabang</td>
+                                                            <td>
+                                                                <input #alamatcab class="form-control" type="text" name="alamatcab" id="alamatcab" value="{{i.ALAMAT_CABANG}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Telepon Cabang</td>
+                                                            <td>
+                                                                <input #teleponcab class="form-control" type="text" name="teleponcab" id="teleponcab" value="{{i.TELEPON_CABANG}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama PIC</td>
+                                                            <td>
+                                                                <input #namapic class="form-control" type="text" name="namapic" id="namapic" value="{{i.NAMA_PIC}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Telepon PIC</td>
+                                                            <td>
+                                                                <input #teleponpic class="form-control" type="text" name="teleponpic" id="teleponpic" value="{{i.TELEPON_PIC}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Email PIC</td>
+                                                            <td>
+                                                                <input #emailpic class="form-control" type="text" name="emailpic" id="emailpic" value="{{i.E_MAIL_PIC}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Longitude</td>
+                                                            <td>
+                                                                <input #longitude class="form-control" type="text" name="longitude" id="longitude" value="{{i.LONGITUDE}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Lattitude</td>
+                                                            <td>
+                                                                <input #lattitude class="form-control" type="text" name="lattitude" id="lattitude" value="{{i.LATTITUDE}}">
+                                                                <input #id type="text" name="id" id="id" value="{{i._id}}" hidden>
+
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success fa fa-save" (click)="update($event, idreg.value, idcab.value, namacab.value, alamatcab.value,  teleponcab.value, namapic.value, teleponpic.value, emailpic.value, longitude.value, lattitude.value, id.value)"
+                                                    (click)="c('Close click')"> Update</button>
+                                                <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
+                                            </div>
+                                                </div>
+                                        </ng-template>
+                                        <button class="btn btn-danger fa fa-trash" (click)="hapus(Hapus)"></button>
+                                        <ng-template #Hapus let-c="close" let-d="dismiss">
+                                                <div role="document" class="modal-sm">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Pemberitahuan</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Yakin menghapus data {{i.NAMA_CABANG}} ?</p>
+                                                <input #id type="text" name="id" id="id" value="{{i._id}}" hidden>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Batal</button>
+                                                <button type="button" class="btn btn-primary" (click)="delete($event, id.value)" (click)="c('Close click')">OK</button>
+                                            </div>
+                                                </div>
+                                        </ng-template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

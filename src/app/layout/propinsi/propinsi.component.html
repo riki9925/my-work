@@ -1,0 +1,15 @@
+<div [@routerTransition] class="container">
+    <div class="content">
+        <div class="card mb-3">
+            <div class="card-header">Propinsi</div>
+            <table class="table table-sm">
+                <tbody>
+                    <tr>
+                        <ng2-smart-table [settings]="settings" [source]="results" (deleteConfirm)="onDeleteConfirm($event)">
+                        </ng2-smart-table>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

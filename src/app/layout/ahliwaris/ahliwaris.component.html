@@ -1,0 +1,128 @@
+<div [@routerTransition]>
+    <div class="content">
+        <jaspero-alerts [defaultSettings]="settings"></jaspero-alerts>
+        <div class="form-group">
+            <button class="btn btn-primary fa fa-plus" (click)="open(addAhliwaris)"> Baru</button>
+            <ng-template #addAhliwaris let-c="close" let-d="dismiss">
+                    <div role="document" class="modal-sm">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Ahliwaris</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table responsive">
+                        <tbody>
+                            <tr>
+                                <td>Urut</td>
+                                <td>
+                                    <input #urut class="form-control" type="text" name="urut" id="urut" placeholder="Nomer Urut">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ahliwaris</td>
+                                <td>
+                                    <input #ahliwaris class="form-control" type="text" name="ahliwaris" id="ahliwaris" placeholder="ahliwaris">
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                    <td>Cif</td>
+                                    <td>
+                                        <input #cif class="form-control" type="text" name="cif" id="cif" placeholder="Cif">
+                                    </td>
+                                </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success fa fa-save" (click)="tambah($event, urut.value, ahliwaris.value)" (click)="c('Close click')"> Simpan</button>
+                    <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
+                </div>
+                    </div>
+            </ng-template>
+        </div>
+                <div class="row">
+                        <div class="col-md-6">
+                        <table class="table1">
+                            <tr>
+                                <th width="50px">No.Urut</th>
+                                <th>Ahliwaris</th>
+                                
+                                <!-- <th>Cif</th> -->
+                                <th class="text-right" style="width:160px"></th>
+                            </tr>
+                            <tbody>
+                                <tr *ngFor="let i of ahliwaris">
+                                    <td>{{i.URUT}}</td>
+                                    <td>{{i.HUBKELUARGA}}</td>
+                                    <!-- <td>{{i.CIF}}</td> -->
+                                    <td class="text-right">
+                                        <button class="fa fa-edit btn btn-sm btn-primary" (click)="edit(Edit)"></button>
+                                        <ng-template #Edit let-c="close" let-d="dismiss">
+                                                <div role="document" class="modal-sm">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Edit</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table responsive">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Urut</td>
+                                                            <td>
+                                                                <input #urut class="form-control" type="text" name="urut" id="urut" value="{{i.URUT}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ahliwaris</td>
+                                                            <td>
+                                                                <input #ahliwaris class="form-control" type="text" name="ahliwaris" id="ahliwaris" value="{{i.HUBKELUARGA}}">
+                                                                <input #id type="text" name="id" id="id" value="{{i._id}}" hidden>
+                                                            </td>
+                                                        </tr>
+                                                        <!-- <tr>
+                                                            <td>Cif</td>
+                                                            <td>
+                                                                <input class="form-control" type="text" name="cif" id="cif" value="{{i.CIF}}">
+                                                            </td>
+                                                        </tr> -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success fa fa-save" (click)="update($event, urut.value, ahliwaris.value, id.value)"
+                                                    (click)="c('Close click')"> Update</button>
+                                                <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
+                                            </div>
+                                            </div>
+                                        </ng-template>
+                                        <button class="btn btn-sm btn-danger fa fa-trash" (click)="hapus(Hapus)"></button>
+                                        <ng-template #Hapus let-c="close" let-d="dismiss">
+                                                <div role="document" class="modal-sm">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Pemberitahuan</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Yakin menghapus data {{i.HUBKELUAGA}} ?</p>
+                                                <input #ahliwaris type="text" name="id" id="id" value="{{i.HUBKELUARGA}}" hidden>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Batal</button>
+                                                <button type="button" class="btn btn-primary" (click)="delete($event, ahliwaris.value)" (click)="c('Close click')">OK</button>
+                                            </div>
+                                                </div>
+                                        </ng-template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>

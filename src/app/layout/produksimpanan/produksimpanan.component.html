@@ -1,0 +1,537 @@
+e
+<div [@routerTransition]>
+  <div class="content">
+    <jaspero-alerts [defaultSettings]="option"></jaspero-alerts>
+    <div class="form-group">
+      <button class="btn btn-primary fa fa-plus" (click)="buka(addIdentitas)"> Tambah jenis produk</button>
+      <ng-template #addIdentitas let-c="close" let-d="dismiss">
+        <div role="document" class="modal-lg">
+          <div class="modal-header">
+            <h4 class="modal-title">Jenis produk tabungan</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table-sm responsive table">
+                  <tbody>
+                    <tr>
+                      <td style="width: 295px;">Rekening/Account</td>
+                      <td style="width: 315px;">
+                        <input #isiacc class="form-control" type="text" disabled value="{{dta1}}">
+                      </td>
+                      <td class="text-center">
+                        <button class="btn btn-primary fa fa-search btn-sm" (click)="searchA(A)"></button>
+                        <ng-template #A let-c="close" let-d="dismiss">
+                          <div role="document" class="modal-sm">
+                            <div class="modal-header">
+                              <h4 class="modal-title">
+                                <input class="form-control" type="text" [(ngModel)]="cari" placeholder="Search">
+                              </h4>
+                              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div>
+                                <!-- <div class="card-header">Striped Rows</div> -->
+                                <div class="table-responsive">
+                                  <table class="table table-sm">
+                                    <thead>
+                                      <th style="width:20%">ACC</th>
+                                      <th>Keterangan</th>
+                                      <th></th>
+                                    </thead>
+                                  </table>
+                                </div>
+                                <div class="table-responsive" style="background:#cccccc;height:200px">
+                                  <table class="table table-hover table-sm">
+                                    <tbody>
+                                      <tr *ngFor="let i of datacoba | filter:cari">
+                                        <td style="width:20%">
+                                          <input class="form-control" #acc disabled type="text" value="{{i.ACC}}" style="background:transparent">
+                                        </td>
+                                        <td>
+                                          <input #ket class="form-control" type="text" value="{{i.KETERANGAN}}" style="background:transparent" disabled>
+                                        </td>
+                                        <td class="text-right">
+                                          <button class="btn btn-info fa fa-check" (click)="isiS($event,acc.value, ket.value)" (click)="c('Close click')"></button>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </td>
+                      <td>
+                        <input #ket class="form-control" type="text" name="ket" id="ket" value="{{dta2}}" disabled>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-9">
+                <table class="table responsive table-sm">
+                  <tbody>
+                    <tr hidden>
+                      <td>ACC</td>
+                      <td>
+                        <input #acc class="form-control" type="text" name="acc" id="acc">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td style="width:295px;">Min. Setoran </td>
+                      <td style="width:315px;">
+                        <!-- <input  #setminimal class="form-control" type="number" name="setminimal" id="minset" value="{{minset}}"> -->
+                        <input #setminimal class="form-control" type="text" name="setminimal" id="minset" currencyMask [(ngModel)]="minset" />
+                      </td>
+                      <td></td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td>Nominal Setoran Rutin/Periodik</td>
+                      <td>
+                        <input #setoran class="form-control" name="setoran" id="setoran" currencyMask [(ngModel)]="Setoran">
+                      </td>
+                      <td></td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td>Biaya Bunga/Jasa</td>
+                      <td>
+                        <input [options]="{ prefix: '', thousands: '.' }" #bunga class="form-control" name="bunga" id="bunga" currencyMask [(ngModel)]="Bunga">
+                      </td>
+                      <td>%</td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td>Biaya Pajak Thd. Bunga</td>
+                      <td>
+                        <input [options]="{ prefix: '', thousands: '.' }" #pajak class="form-control" name="pajak" id="pajak" currencyMask [(ngModel)]="Pajak">
+                      </td>
+                      <td>%</td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td>Biaya Penutupan Rek.</td>
+                      <td>
+                        <input #biayaoffrek class="form-control" name="biayaoffrek" id="biayaoffrek" currencyMask [(ngModel)]="Pot">
+                      </td>
+                      <td></td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td>Biaya Administrasi</td>
+                      <td>
+                        <input #adm class="form-control" name="adm" id="adm" currencyMask [(ngModel)]="Adm">
+                      </td>
+                      <td></td>
+                      <td style="color:red">*</td>
+                    </tr>
+
+                    <tr>
+                      <td>Perhitungan Bunga</td>
+                      <td>
+                        <select *ngIf="BtnSimpan" class="form-control" (change)="onChange($event)">
+                          <option selected value="">Pilih Perhitungan Bunga</option>
+                          <option value="">--------------------</option>
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                        </select>
+                        <select *ngIf="BtnUbah" class="form-control" (change)="onChange($event)">
+                          <option selected value="{{PBGA}}">{{PBGA}}</option>
+                          <option value="">--------------------</option>
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                        </select>
+                        <select *ngIf="BtnHapus" class="form-control" (change)="onChange($event)">
+                          <option selected value="{{PBGA}}">{{PBGA}}</option>
+                          <option value="">--------------------</option>
+                          <option value="0">0</option>
+                          <option value="1">1</option>
+                        </select>
+                      </td>
+                      <td></td>
+                      <td style="color:red">*</td>
+                      <td style="padding-left: 50px;">
+                        <input type="checkbox" name="stjenissimp" [(ngModel)]="stjenissimp"> Status ({{Aktif}})</td>
+                    </tr>
+
+                    <tr hidden>
+                      <td>Setoran Awal</td>
+                      <td>
+                        <input #setawal class="form-control" type="text" name="setawal" id="setawal">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr hidden>
+                      <td>Minimal Tarik</td>
+                      <td>
+                        <input #mintarik class="form-control" type="text" name="mintarik" id="mintarik">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr hidden>
+                      <td>Maximal Tarik</td>
+                      <td>
+                        <input #maxtarik class="form-control" type="text" name="maxtarik" id="maxtarik">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr hidden>
+                      <td>Saldo Minimal</td>
+                      <td>
+                        <input #salmin class="form-control" type="text" name="salmin" id="salmin">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr hidden>
+                      <td>Potongan</td>
+                      <td>
+                        <input #potongan class="form-control" type="text" name="potongan" id="potongan">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-12">
+                <table class="table-sm responsive table">
+                  <tbody>
+                    <tr>
+                      <td style="width:295px">Rek. Beban Pajak Bunga</td>
+                      <td style="width:315px">
+                        <input #isiacc class="form-control" type="text" disabled value="{{dtacc}}">
+                      </td>
+                      <td class="text-center">
+                        <button class="btn btn-primary fa fa-search btn-sm" (click)="searchpjb(pjb)"></button>
+                        <ng-template #pjb let-c="close" let-d="dismiss">
+                          <div role="document" class="modal-sm">
+                            <div class="modal-header">
+                              <h4 class="modal-title">
+                                <input class="form-control" type="text" [(ngModel)]="cari" placeholder="Search" style="width:100%;">
+                              </h4>
+                              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div>
+                                <!-- <div class="card-header">Striped Rows</div> -->
+                                <div class="table-responsive" style="background:#cccccc;">
+                                  <table class="table table-sm">
+                                    <thead>
+                                      <th style="width:20%">ACC</th>
+                                      <th>Keterangan</th>
+                                      <th></th>
+                                    </thead>
+                                  </table>
+                                </div>
+                                <div class="table-responsive" style="background:#cccccc;height:200px">
+                                  <table class="table table-hover table-sm">
+                                    <tbody>
+                                      <tr *ngFor="let i of datacoba | filter:cari">
+                                        <td style="width:20%">
+                                          <input class="form-control" #acc disabled type="text" value="{{i.ACC}}" style="background:transparent">
+                                        </td>
+                                        <td>
+                                          <input #ket class="form-control" type="text" value="{{i.KETERANGAN}}" style="background:transparent" disabled>
+                                        </td>
+                                        <td class="text-right">
+                                          <button class="btn btn-info fa fa-check" (click)="isi($event,acc.value, ket.value)" (click)="c('Close click')"></button>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </td>
+                      <td>
+                        <input #ket class="form-control" type="text" name="ket" id="ket" value="{{dtket}}" disabled>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Rek. Pdpt Penutupan</td>
+                      <td>
+                        <input #acc class="form-control" type="text" value="{{accb}}" disabled>
+                      </td>
+                      <td class="text-center">
+                        <button class="btn btn-primary fa fa-search btn-sm" (click)="search(chari)"></button>
+                        <ng-template #chari let-c="close" let-d="dismiss">
+                          <div role="document" class="modal-sm">
+                            <div class="modal-header">
+                              <h4 class="modal-title">
+                                <input class="form-control" type="text" [(ngModel)]="cari" placeholder="Search" style="width:100%;">
+                              </h4>
+                              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div>
+                                <!-- <div class="card-header">Striped Rows</div> -->
+                                <div class="table-responsive" style="background:#cccccc;">
+                                  <table class="table table-sm">
+                                    <thead>
+                                      <th style="width:20%">ACC</th>
+                                      <th>Keterangan</th>
+                                      <th></th>
+                                    </thead>
+                                  </table>
+                                </div>
+                                <div class="table-responsive" style="background:#cccccc;height:200px">
+                                  <table class="table table-hover table-sm">
+                                    <tbody>
+                                      <tr *ngFor="let i of datacoba | filter:cari">
+                                        <td style="width:20%">
+                                          <input class="form-control" #acc disabled type="text" value="{{i.ACC}}" style="background:transparent">
+                                        </td>
+                                        <td>
+                                          <input #ket class="form-control" type="text" value="{{i.KETERANGAN}}" style="background:transparent" disabled>
+                                        </td>
+                                        <td class="text-right">
+                                          <button class="btn btn-info fa fa-check" (click)="isiB($event,acc.value, ket.value)" (click)="c('Close click')"></button>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+
+                      </td>
+                      <td>
+                        <input #ket class="form-control" type="text" value="{{ketb}}" disabled>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Rek. Pdpt Administrasi</td>
+                      <td>
+                        <input #acc class="form-control" type="text" value="{{accc}}" disabled>
+                      </td>
+                      <td class="text-center">
+                        <button class="btn btn-primary fa fa-search btn-sm" (click)="searchC(C)"></button>
+                        <ng-template #C let-c="close" let-d="dismiss">
+                          <div role="document" class="modal-sm">
+                            <div class="modal-header">
+                              <h4 class="modal-title">
+                                <input class="form-control" type="text" [(ngModel)]="cari" placeholder="Search" style="width:100%;">
+                              </h4>
+                              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div>
+                                <!-- <div class="card-header">Striped Rows</div> -->
+                                <div class="table-responsive" style="background:#cccccc;">
+                                  <table class="table table-sm">
+                                    <thead>
+                                      <th style="width:20%">ACC</th>
+                                      <th>Keterangan</th>
+                                      <th></th>
+                                    </thead>
+                                  </table>
+                                </div>
+                                <div class="table-responsive" style="background:#cccccc;height:200px">
+                                  <table class="table table-hover table-sm">
+                                    <tbody>
+                                      <tr *ngFor="let i of datacoba | filter:cari">
+                                        <td style="width:20%">
+                                          <input class="form-control" #acc disabled type="text" value="{{i.ACC}}" style="background:transparent">
+                                        </td>
+                                        <td>
+                                          <input #ket class="form-control" type="text" value="{{i.KETERANGAN}}" style="background:transparent" disabled>
+                                        </td>
+                                        <td class="text-right">
+                                          <button class="btn btn-info fa fa-check" (click)="isiC($event,acc.value, ket.value)" (click)="c('Close click')"></button>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+
+                      </td>
+                      <td>
+                        <input #ket class="form-control" type="text" value="{{ketc}}" disabled>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-6" hidden>
+                <table class="table responsive table-sm">
+                  <tbody>
+                    <tr>
+                      <td>ACC Bunga</td>
+                      <td>
+                        <input #accbga class="form-control" type="text" name="accbga" id="accbga">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td>ACC Pajak</td>
+                      <td>
+                        <input #accpjk class="form-control" type="email" name="accpjk" id="accpjk">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td>ACC Administrasi</td>
+                      <td>
+                        <input #accadm class="form-control" type="text" name="accadm" id="accadm">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td>ACC Potongan</td>
+                      <td>
+                        <input #accpot class="form-control" type="text" name="accpot" id="accpot">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td>PB</td>
+                      <td>
+                        <input #pb class="form-control" type="text" name="pb" id="pb">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td>Status</td>
+                      <td>
+                        <input #st class="form-control" type="text" name="st" id="st">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td>KST</td>
+                      <td>
+                        <input #kst class="form-control" type="text" name="kst" id="kst">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                    <tr>
+                      <td>KU</td>
+                      <td>
+                        <input #ku class="form-control" type="text" name="ku" id="ku">
+                      </td>
+                      <td style="color:red">*</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer" style="background:white">
+
+            <button *ngIf="BtnSimpan" type="button" class="btn btn-primary" (click)="bukan(yesorno)" (click)="c('Close click')"> Simpan</button>
+            <button *ngIf="BtnUbah" type="button" class="btn btn-primary" (click)="bukan(yesorno)" (click)="c('Close click')"> Update</button>
+            <button *ngIf="BtnHapus" type="button" class="btn btn-primary" (click)="bukan(yesorno)" (click)="c('Close click')">Hapus</button>
+            <!-- <button type="button" class="btn btn-danger" (click)="c('Close click')">Keluar</button> -->
+            <ng-template #yesorno let-c="close" let-d="dismiss">
+              <div role="document" class="modal-logout">
+                <div class="modal-header">
+                  <div class="col-lg-12 text-center">
+                    <h4 class="modal-title">Konfirmasi</h4>
+                  </div>
+                </div>
+                <div class="modal-body">
+                  <div class="text-center font-costum">
+                    <h2 *ngIf="BtnSimpan">Yakin menyimpan data ?</h2>
+                    <h2 *ngIf="BtnUbah">Yakin memperbarui data ?</h2>
+                    <h2 *ngIf="BtnHapus">Yakin menghapus data ?</h2>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div class="col-lg-12 text-center">
+                    <button type="button" class="btn btn-danger" (click)="c('Close click')" style="width:100px">Batal</button>
+                    <button *ngIf="BtnSimpan" type="button" class="btn btn-success" (click)="tambah($event, acc.value, bunga.value, pajak.value, setawal.value, setminimal.value, mintarik.value, maxtarik.value, biayaoffrek.value, salmin.value, potongan.value, setoran.value, adm.value, accbga.value, accpjk.value, accadm.value, accpot.value, pb.value, st.value, kst.value, ku.value)"
+                      style="width:100px" (click)="c('Close click')">Ok</button>
+                    <button *ngIf="BtnHapus" type="button" class="btn btn-success" (click)="delete()" (click)="c('Close click')" style="width:100px">Ok</button>
+                    <button *ngIf="BtnUbah" type="button" class="btn btn-success" (click)="update($event, acc.value, bunga.value, pajak.value, setawal.value, setminimal.value, mintarik.value, maxtarik.value, biayaoffrek.value, salmin.value, potongan.value, setoran.value, adm.value, accbga.value, accpjk.value, accadm.value, accpot.value, pb.value, st.value, kst.value, ku.value)"
+                      style="width:100px" (click)="c('Close click')">Ok</button>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    <div class="card mb-3 col-md-12">
+      <div class="card-header">Produk Simpanan</div>
+      <div class="card-block table-responsive">
+        <div class="row">
+          <div class="col-md-12" style="height:340px;">
+            <table class="table responsive table-sm">
+              <thead>
+                <th>Jenis</th>
+                <th>Keterangan</th>
+                <th>Bunga</th>
+                <th>Pajak</th>
+                <th>Max Tarik</th>
+                <th>Saldo Min</th>
+                <th>Setoran</th>
+                <th>ST</th>
+                <th class="text-right" style="width:160px"></th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let i of data">
+                  <td>{{i.ACC}}</td>
+                  <td>{{i.account.KETERANGAN}}</td>
+                  <td class="text-right">{{i.BGA | number : '1.2'}}</td>
+                  <td class="text-right">{{i.PJK | number : '1.2'}}</td>
+                  <td class="text-right">{{i.MAXTARIK}}</td>
+                  <td class="text-right">{{i.SALMIN}}</td>
+                  <td class="text-right">{{i.SETORAN | number : '1.2'}}</td>
+                  <td class="text-right">{{i.ST}}</td>
+                  <td class="text-right">
+                    <input #id type="text" value="{{i._id}}" hidden>
+                    <input #acc type="text" value="{{i.ACC}}" hidden>
+                    <input #keterangan type="text" value="{{i.account.KETERANGAN}}" hidden>
+                    <input #bunga type="text" value="{{i.BGA}}" hidden>
+                    <input #pajak type="text" value="{{i.PJK}}" hidden>
+                    <input #maxtarik type="text" value="{{i.MAXTARIK}}" hidden>
+                    <input #salmin type="text" value="{{i.SALMIN}}" hidden>
+                    <input #setmin type="text" value="{{i.SETMIN}}" hidden>
+                    <input #setoran type="text" value="{{i.SETORAN}}" hidden>
+                    <input #pot type="text" value="{{i.POT}}" hidden>
+                    <input #adm type="text" value="{{i.ADM}}" hidden>
+                    <input #accpjk type="text" value="{{i.ACCPJK}}" hidden>
+                    <input #accpot type="text" value="{{i.ACCPOT}}" hidden>
+                    <input #accadm type="text" value="{{i.ACCADM}}" hidden>
+                    <input #accpjkdet type="text" value="{{i.ACCPJKDET}}" hidden>
+                    <input #accpotdet type="text" value="{{i.ACCPOTDET}}" hidden>
+                    <input #accadmdet type="text" value="{{i.ACCADMDET}}" hidden>
+                    <input #sjt type="text" value="{{i.SJT}}" hidden>
+                    <input #pbga type="text" value="{{i.PBGA}}" hidden>
+                    <button class="fa fa-edit btn btn-primary" (click)="edit(addIdentitas, $event, id.value, acc.value, keterangan.value, bunga.value, pajak.value, maxtarik.value, salmin.value, setmin.value, setoran.value, pot.value, adm.value, accpjk.value, accpot.value, accadm.value, accpjkdet.value, accpotdet.value, accadmdet.value, sjt.value, pbga.value)"></button>
+                    <button class="btn btn-danger fa fa-trash" (click)="hapus(addIdentitas, $event, id.value, acc.value, keterangan.value, bunga.value, pajak.value, maxtarik.value, salmin.value, setmin.value, setoran.value, pot.value, adm.value, accpjk.value, accpot.value, accadm.value, accpjkdet.value, accpotdet.value, accadmdet.value, sjt.value, pbga.value)"></button>
+                    
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

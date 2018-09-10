@@ -1,0 +1,533 @@
+<nav class="sidebar-header font-costum" [ngClass]="{sidebarPushRight: isActive}">
+
+    <div class="sidebar">
+        <ul class="list-group">
+            <a *ngIf="ads" class="list-group-item menu">
+                Menu Administrator
+            </a>
+            <a *ngIf="ads" routerLink="/lvuser" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-th"></i>&nbsp;{{ 'Level User' | translate }}
+            </a>
+            <a *ngIf="ads" routerLink="/preveledge" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-th"></i>&nbsp;{{ 'Preveledge' | translate }}
+            </a>
+            <div *ngIf="ads" class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('pages')">
+                    <span>
+                        <i class="fa fa-th"></i>&nbsp;{{ 'User Profile' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'pages'">
+                    <ul class="submenu">
+                        <li>
+                            <a routerLink="/masteruser" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Master User' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/releaseuser" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Release User' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <a *ngIf="ads" routerLink="/log" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-th"></i>&nbsp;{{ 'Log Aktivity' | translate }}
+            </a>
+            <a *ngIf="setting" class="list-group-item  menu">
+                Menu Setting
+            </a>
+            <a *ngIf="setting" routerLink="/regional" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-th"></i>&nbsp;{{ 'Regional' | translate }}
+            </a>
+            <div *ngIf="setting" class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('pages')">
+                    <span>
+                        <i class="fa fa-th"></i>&nbsp;{{ 'Wilayah' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'pages'">
+                    <ul class="submenu">
+                        <li>
+                            <a routerLink="/propinsi" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Propinsi'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/kabupaten" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Kabupaten'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/kecamatan" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Kecematan'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/kelurahan" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Kelurahan'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/kodepos" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Kode pos'}}</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+            </div>
+            <a *ngIf="setting" routerLink="/cabang" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-th"></i>&nbsp;{{ 'Cabang' | translate }}
+            </a>
+            <!-- <a *ngIf="setting" routerLink="/register" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-th"></i>&nbsp;{{ 'Registrasi' | translate }}
+            </a> -->
+            <div *ngIf="setting" class="nested-menu">
+                <a class="list-group-item" (click)="kesehatan('pages')">
+                    <span>
+                        <i class="fa fa-th"></i>&nbsp;{{ 'Account (COA)' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showkes === 'pages'">
+                    <ul class="submenu">
+
+                        <li>
+                            <a *ngIf="setting" [routerLink]="['/jenis-account']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                {{ 'Jenis Account' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a *ngIf="setting" [routerLink]="['/kelompok-account']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                {{ 'Kelompok Account' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a *ngIf="setting" [routerLink]="['/buku-besar']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                {{ 'Buku Besar' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a *ngIf="setting" [routerLink]="['/sub-buku-besar']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                {{ 'Sub Buku Besar' | translate }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <div *ngIf="setting" class="nested-menu">
+                <a class="list-group-item" (click)="produk('pages')">
+                    <span>
+                        <i class="fa fa-th"></i>&nbsp;{{ 'Produk' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showprod === 'pages'">
+                    <ul class="submenu">
+
+                        <li>
+                            <a routerLink="/master-los" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Simpanan'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/master-los" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Simpanan Berjangka'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/master-los" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Tabungan'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/master-los" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Hutang'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/master-los" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Piutang'}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <div *ngIf="setting" class="nested-menu">
+                <a class="list-group-item" (click)="trans('pages')">
+                    <span>
+                        <i class="fa fa-th"></i>&nbsp;{{ 'Transaksi' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showtrans === 'pages'">
+                    <ul class="submenu">
+
+                        <li>
+                            <a routerLink="/master-los" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Rek. Laba-Rugi'}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <a *ngIf="parameter" class="list-group-item menu">
+                Menu Parameter
+            </a>
+            <div *ngIf="parameter" class="nested-menu">
+                <a class="list-group-item" (click)="addExpanMasterdata('pages')">
+                    <span>
+                        <i class="fa fa-th"></i>&nbsp;{{ 'Master Data' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showMaster === 'pages'">
+                    <ul class="submenu">
+                        <li>
+                            <a routerLink="/master-los" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'LOS'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/master-collectibilitas" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Collectibilitas'}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <div *ngIf="parameter" class="nested-menu">
+                <a class="list-group-item" (click)="kesehatan('pages')">
+                    <span>
+                        <i class="fa fa-th"></i>&nbsp;{{ 'Penilaian Kesehatan' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showkes === 'pages'">
+                    <ul class="submenu">
+
+                        <li>
+                            <a routerLink="/master-los" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Penilaian'}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+
+            <a *ngIf="masteranggota" class="list-group-item menu">
+                {{ 'Menu Anggota' | translate }}
+            </a>
+            <div *ngIf="masteranggota" class="nested-menu">
+                <a class="list-group-item" (click)="MA('pages')">
+                    <span>
+                        <i class="fa fa-th"></i>&nbsp;{{ 'Setting' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showma === 'pages'">
+                    <ul class="submenu">
+
+                        <li>
+                            <a routerLink="/identitas" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Identitas'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/agama" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Agama'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/pendidikan" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Pendidikan'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/pekerjaan" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Pekerjaan'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/jabatan" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Jabatan'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/golongan" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Golongan'}}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/ahliwaris" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Ahli Waris'}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <a *ngIf="masteranggota" [routerLink]="['/instansi-grup']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-th"></i>&nbsp;{{ 'Instansi/Grup' | translate }}
+            </a>
+            <a *ngIf="masteranggota" [routerLink]="['/anggota']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-th"></i>&nbsp;{{ 'Anggota' | translate }}
+            </a>
+            <a *ngIf="masteranggota" [routerLink]="['/tagihan']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-th"></i>&nbsp;{{ 'Tagihan' | translate }}
+            </a>
+            <a *ngIf="cif" class="list-group-item menu">
+                Menu CIF
+            </a>
+            <a *ngIf="cif" routerLink="/master-mitra" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <span>
+                    <i class="fa fa-th"></i>&nbsp;{{ 'Master Mitra (CIF)' | translate }}</span>
+            </a>
+            <a *ngIf="simp" class="list-group-item menu">
+                {{ 'Menu Simpanan' | translate }}
+            </a>
+            <div *ngIf="simp" class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('pages')">
+                    <span>
+                        <i class="fa fa-th"></i>{{ 'Setting' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'pages'">
+                    <ul class="submenu">
+                        <li>
+                            <a routerLink="/produk-simpanan" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Produk' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <a *ngIf="simp" routerLink="/masters" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-th"></i>{{ 'Master Data' | translate }}
+            </a>
+            <div *ngIf="simp" class="nested-menu">
+                <a class="list-group-item" (click)="transaksi('pages')">
+                    <span>
+                        <i class="fa fa-th"></i>{{ 'Transaksi' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showT === 'pages'">
+                    <ul class="submenu">
+                        <li>
+                        <div class="nested-menu-menu">
+                            <a class="list-group-item" (click)="setoran('pages')">
+                                <span>{{ 'Setoran' | translate }}</span>
+                            </a>
+                            <li class="nested" [class.expand]="showSet === 'pages'">
+                                <ul class="submenu-menu">
+                                    <li>
+                                        <a routerLink="/jproduks" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Individu' | translate }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/upbungas" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Kolektif' | translate }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="nested-menu-menu">
+                            <a class="list-group-item" (click)="penarikan('setor')">
+                                <span>{{ 'Penarikan' | translate }}</span>
+                            </a>
+                            <li class="nested" [class.expand]="showPen === 'setor'">
+                                <ul class="submenu-menu">
+                                    <li>
+                                        <a routerLink="/jproduks" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Individu' | translate }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/upbungas" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Kolektif' | translate }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
+                        </li>
+                        <li>
+                            <a routerLink="/upbungas" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Pindah Buku' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                        <div class="nested-menu-menu">
+                            <a class="list-group-item" (click)="pendebetan('setor')">
+                                <span>{{ 'Pendebetan' | translate }}</span>
+                            </a>
+                            <li class="nested" [class.expand]="showPendeb === 'setor'">
+                                <ul class="submenu-menu">
+                                    <li>
+                                        <a routerLink="/jproduks" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Individu' | translate }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/upbungas" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Kolektif' | translate }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="nested-menu-menu">
+                            <a class="list-group-item" (click)="pengkreditan('setor')">
+                                <span>{{ 'Pengkreditan' | translate }}</span>
+                            </a>
+                            <li class="nested" [class.expand]="showPengkreditan === 'setor'">
+                                <ul class="submenu-menu">
+                                    <li>
+                                        <a routerLink="/jproduks" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Individu' | translate }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/upbungas" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Kolektif' | translate }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
+                        </li>
+                        <li>
+                            <a routerLink="/upbungas" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Penutupan' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+
+            <a *ngIf="tabung" class="list-group-item menu">
+                {{ 'Menu Tabungan' | translate }}
+            </a>
+            <div *ngIf="tabung" class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('pages')">
+                    <span>
+                        <i class="fa fa-th"></i>{{ 'Setting' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'pages'">
+                    <ul class="submenu">
+                        <li>
+                            <a routerLink="/produk-tabungan" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Produk' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <a *ngIf="tabung" routerLink="/master-data-tabungan" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-th"></i>{{ 'Master Data' | translate }}
+            </a>
+            <div *ngIf="tabung" class="nested-menu">
+                <a class="list-group-item" (click)="transaksi('pages')">
+                    <span>
+                        <i class="fa fa-th"></i>{{ 'Transaksi' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showT === 'pages'">
+                    <ul class="submenu">
+                        <li>
+                        <div class="nested-menu-menu">
+                            <a class="list-group-item" (click)="setoran('pages')">
+                                <span>{{ 'Setoran' | translate }}</span>
+                            </a>
+                            <li class="nested" [class.expand]="showSet === 'pages'">
+                                <ul class="submenu-menu">
+                                    <li>
+                                        <a routerLink="/jproduks" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Individu' | translate }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/upbungas" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Kolektif' | translate }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="nested-menu-menu">
+                            <a class="list-group-item" (click)="penarikan('setor')">
+                                <span>{{ 'Penarikan' | translate }}</span>
+                            </a>
+                            <li class="nested" [class.expand]="showPen === 'setor'">
+                                <ul class="submenu-menu">
+                                    <li>
+                                        <a routerLink="/jproduks" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Individu' | translate }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/upbungas" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Kolektif' | translate }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
+                        </li>
+                        <li>
+                            <a routerLink="/upbungas" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Pindah Buku' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                        <div class="nested-menu-menu">
+                            <a class="list-group-item" (click)="pendebetan('setor')">
+                                <span>{{ 'Pendebetan' | translate }}</span>
+                            </a>
+                            <li class="nested" [class.expand]="showPendeb === 'setor'">
+                                <ul class="submenu-menu">
+                                    <li>
+                                        <a routerLink="/jproduks" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Individu' | translate }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/upbungas" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Kolektif' | translate }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="nested-menu-menu">
+                            <a class="list-group-item" (click)="pengkreditan('setor')">
+                                <span>{{ 'Pengkreditan' | translate }}</span>
+                            </a>
+                            <li class="nested" [class.expand]="showPengkreditan === 'setor'">
+                                <ul class="submenu-menu">
+                                    <li>
+                                        <a routerLink="/jproduks" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Individu' | translate }}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a routerLink="/upbungas" [routerLinkActive]="['router-link-active']">
+                                            <span>{{ 'Kolektif' | translate }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </div>
+                        </li>
+                        <li>
+                            <a routerLink="/upbungas" [routerLinkActive]="['router-link-active']">
+                                <span>{{ 'Penutupan' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+
+
+            
+
+            <a [routerLink]="['/menu']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-arrow-left"></i>&nbsp;{{ 'Kembali' | translate }}
+            </a>
+        </ul>
+    </div>
+</nav>

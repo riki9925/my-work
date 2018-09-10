@@ -1,0 +1,202 @@
+<div [@routerTransition]>
+    <div class="content">
+        <jaspero-alerts [defaultSettings]="settings"></jaspero-alerts>
+        <div class="form-group">
+            <button class="btn btn-primary fa fa-plus" (click)="open(addIdentitas)"> Baru</button>
+            <ng-template #addIdentitas let-c="close" let-d="dismiss">
+                    <div role="document" class="modal-sm">
+                <div class="modal-header">
+                    <h4 class="modal-title">Form Instansi</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table responsive">
+                        <tbody>
+                            <tr>
+                                <td>Kode Instansi</td>
+                                <td>
+                                    <input #ki class="form-control" type="text" name="ki" id="ki" placeholder="Kode Instansi">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nama Instansi</td>
+                                <td>
+                                    <input #ni class="form-control" type="text" name="ni" id="ni" placeholder="Nama Instansi">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Telepon</td>
+                                <td>
+                                    <input #telepon class="form-control" type="text" name="telepon" id="telepon" placeholder="Telepon">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Handphone</td>
+                                <td>
+                                    <input #handphone class="form-control" type="text" name="handphone" id="handphone" placeholder="Handphone">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Alamat</td>
+                                <td>
+                                    <input #alamat class="form-control" type="text" name="alamat" id="alamat" placeholder="Alamat">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nama Bendahara</td>
+                                <td>
+                                    <input #nb class="form-control" type="text" name="namabendahara" id="namabendahara" placeholder="Nama Bendahara">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Telepon Bendahara</td>
+                                <td>
+                                    <input #tb class="form-control" type="text" name="tb" id="tb" placeholder="Telepon Bendahara">
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                        <td>Cif</td>
+                                        <td>
+                                            <input #cif class="form-control" type="text" name="cif" id="cif" placeholder="Cif">
+                                        </td>
+                                    </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success fa fa-save" (click)="tambah($event, ki.value, ni.value, telepon.value, handphone.value, alamat.value, nb.value, tb.value)" (click)="c('Close click')"> Simpan</button>
+                    <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
+                </div>
+                    </div>
+            </ng-template>
+        </div>
+        <div class="card mb-3 col-md-12">
+            <div class="card-header">Data Instansi</div>
+            <div class="card-block table-responsive">
+                <div class="row">
+                    <div class="col-md-12" style="height:340px;">
+                        <table class="table table-sm">
+                            <thead>
+                                <th>KI</th>
+                                <th>Nama Instansi</th>
+                                <th>Alamat</th>
+                                <th>Telepon</th>
+                                <th>Handphone</th>
+                                <th>Nama Bendahara</th>
+                                <th>Telepon Bendahara</th>
+                                <!-- <th>Cif</th> -->
+                                <th class="text-right" style="width:160px"></th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let i of data">
+                                    <td>{{i.KI}}</td>
+                                    <td>{{i.NAMA_INSTANSI}}</td>
+                                    <td>{{i.ALAMAT}}</td>
+                                    <td>{{i.TELEPON}}</td>
+                                    <td>{{i.HANDPHONE}}</td>
+                                    <td>{{i.NAMA_BENDAHARA}}</td>
+                                    <td>{{i.TELEPON_BENDAHARA}}</td>
+                                    <!-- <td>{{i.CIF}}</td> -->
+                                    <td class="text-right">
+                                        <button class="fa fa-edit btn btn-primary" (click)="edit(Edit)"></button>
+                                        <ng-template #Edit let-c="close" let-d="dismiss">
+                                                <div role="document" class="modal-sm">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Edit</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table responsive">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>KI</td>
+                                                            <td>
+                                                                <input #ki class="form-control" type="text" name="ki" id="ki" value="{{i.KI}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Instansi</td>
+                                                            <td>
+                                                                <input #ni class="form-control" type="text" name="ni" id="ni" value="{{i.NAMA_INSTANSI}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Alamat</td>
+                                                            <td>
+                                                                <input #alamat class="form-control" type="text" name="alamat" id="alamat" value="{{i.ALAMAT}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Telepon</td>
+                                                            <td>
+                                                                <input #telepon class="form-control" type="text" name="telepon" id="telepon" value="{{i.TELEPON}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Handphone</td>
+                                                            <td>
+                                                                <input #handphone class="form-control" type="text" name="hp" id="hp" value="{{i.HANDPHONE}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nama Bendahara</td>
+                                                            <td>
+                                                                <input #nb class="form-control" type="text" name="nb" id="nb" value="{{i.NAMA_BENDAHARA}}">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Telepon Bendahara</td>
+                                                            <td>
+                                                                <input #tb class="form-control" type="text" name="tb" id="tb" value="{{i.TELEPON_BENDAHARA}}">
+                                                                <input #id type="text" name="id" id="id" value="{{i._id}}" hidden>
+                                                            </td>
+                                                        </tr>
+                                                        <!-- <tr>
+                                                                <td>Cif</td>
+                                                                <td>
+                                                                    <input class="form-control" type="text" name="cif" id="cif" value="{{i.CIF}}">
+                                                                </td>
+                                                            </tr> -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success fa fa-save" (click)="update($event, ki.value, ni.value, telepon.value, handphone.value, alamat.value, nb.value, tb.value, id.value)"
+                                                (click)="c('Close click')"> Update</button>
+                                                <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
+                                            </div>
+                                                </div>
+                                        </ng-template>
+                                        <button class="btn btn-danger fa fa-trash" (click)="hapus(Hapus)"></button>
+                                        <ng-template #Hapus let-c="close" let-d="dismiss">
+                                                <div role="document" class="modal-sm">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Pemberitahuan</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Yakin menghapus instansi {{i.NAMA_INSTANSI}} ?</p>
+                                                <input #id type="text" name="id" id="id" value="{{i._id}}" hidden>                                                
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Batal</button>
+                                                <button type="button" class="btn btn-primary" (click)="delete($event, id.value)" (click)="c('Close click')">OK</button>
+                                            </div>
+                                                </div>
+                                        </ng-template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

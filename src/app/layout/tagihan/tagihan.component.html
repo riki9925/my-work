@@ -1,0 +1,309 @@
+<div [@routerTransition]>
+    <div class="content">
+        <jaspero-alerts [defaultSettings]="options"></jaspero-alerts>
+        <div class="card mb-3">
+            <div class="card-block">
+                <table class="table responsive table-sm">
+                    <tbody>
+                        <tr>
+                            <td style="width:10%;">Urut</td>
+                            <td>
+                                <select class="form-control">
+                                    <option selected value="">Urut Berdasarkan</option>
+                                    <option value="">Nama</option>
+                                </select>
+                            </td>
+                            <td>Instansi</td>
+                            <td>
+                                <select class="form-control">
+                                    <option selected value="">Pilih Instansi/Grup</option>
+                                    <option value="">-</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" style="width:130px">
+                                    <i class="fa fa-eye"></i> Tampilkan</button>
+                            </td>
+                            <!-- <td rowspan="2">
+                      <button class="btn btn-primary">
+                        <i class="fa fa-check"></i> Approve</button>
+                    </td> -->
+                        </tr>
+                        <tr>
+                            <td>Periode</td>
+                            <td>
+                                <input class="form-control" type="date" name="date" id="date">
+                            </td>
+                            <td>Golongan</td>
+                            <td>
+                                <select class="form-control">
+                                    <option selected value="">Pilih Golongan</option>
+                                    <option value="">-</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" style="width:130px">
+                                    <i class="fa fa-download"></i> Download</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card col-md-12">
+            <div class="card-header">Data Tagihan</div>
+            <div class="card-block table-responsive">
+                <div class="row">
+                    <div class="col-md-12" style="height:350px">
+                        <table class="table responsive table-sm">
+                            <thead>
+                                <th>No Anggota</th>
+                                <th>Nama</th>
+                                <th>Nomor</th>
+                                <th class="text-right" style="width:160px"></th>
+                            </thead>
+                            <tbody>
+                                <tr >
+                                    <!-- <td>{{i.CIF}}</td> -->
+                                    <td class="text-right">
+                                        <button class="fa fa-edit btn btn-primary" (click)="edit(Edit)"></button>
+                                        <ng-template #Edit let-c="close" let-d="dismiss">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Edit</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <table class="table responsive table-sm">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Nomer Anggota</td>
+                                                                    <td colspan="2">
+                                                                        <input #nomeranggota class="form-control" type="text" name="nomeranggota" id="nomeranggota" value="{{i.NO_ANGGOTA}}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Kartu Anggota</td>
+                                                                    <td colspan="2">
+                                                                        <input #kartuanggota class="form-control" type="text" name="kartuanggota" id="kartuanggota" value="{{i.NOKARTU}}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>NIP</td>
+                                                                    <td colspan="2">
+                                                                        <input #nip class="form-control" type="text" name="nip" id="nip" value="{{i.NIP}}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Instansi/Grup</td>
+                                                                    <td colspan="2">
+                                                                        <Select class="form-control" (change)="onInstansi($event)">
+                                                                            <option value="{{i.instansi.NAMA_INSTANSI}}">{{i.instansi.NAMA_INSTANSI}}</option>
+                                                                            <option value="">Pilih Instansi</option>
+                                                                            <option *ngFor="let item of instansi" value="{{item.KI}}">{{item.NAMA_INSTANSI}}</option>
+                                                                        </Select>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Nomor Gaji</td>
+                                                                    <td colspan="2">
+                                                                        <input #nomergaji class="form-control" type="number" name="nomergaji" id="nomergaji" value="{{i.NOGAJI}}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Nama Lengkap</td>
+                                                                    <td colspan="2">
+                                                                        <input #namalengkap class="form-control" type="text" name="namalengkap" id="namalengkap" value="{{i.NAMA}}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Nama Panggilan</td>
+                                                                    <td>
+                                                                        <input #namapanggilan class="form-control" type="text" name="namapanggilan" id="namapanggilan" value="{{i.PANGGILAN}}">
+                                                                    </td>
+                                                                    <td>
+                                                                        <select class="form-control" (change)="onJkelamin($event)">
+                                                                            <option value="{{i.KL}}">{{i.KL}}</option>
+                                                                            <option value="">L/P</option>
+                                                                            <option value="L">L</option>
+                                                                            <option value="P">P</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Tempat/Tgl Lahir</td>
+                                                                    <td>
+                                                                        <input #tempattgllahir class="form-control" type="text" name="tempattgllahir" id="tempattgllahir" value="{{i.TMP_LAHIR}}">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input #tgllahir class="form-control" type="date" name="tgllahir" id="tgllahir" value="{{i.TGL_LAHIR}}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Identitas</td>
+                                                                    <td colspan="2">
+                                                                        <select class="form-control" (change)="onIdentitas($event)">
+                                                                            <option selected value="{{i.ID}}">{{i.ID}}</option>
+                                                                            <option value="">Pilih Identitas</option>
+                                                                            <option *ngFor="let i of dataIdent" value="{{i.IDENTITAS}}">{{i.IDENTITAS}}</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td>Tgl expired / Berakhir</td>
+                                                                    <td>
+                                                                        <input #tglberakhir class="form-control" type="date" name="tglberakhir" id="tglberakhir" value="{{i.TGLEXPIRED}}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Alamat</td>
+                                                                    <td colspan="2">
+                                                                        <textarea #alamat name="alamat" id="alamat" class="form-control" rows="3" value="{{i.ALAMAT}}"></textarea>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <table class="table responsive table-sm">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Telepon</td>
+                                                                    <td colspan="2">
+                                                                        <input #telepon class="form-control" type="number" name="telepon" id="telepon" value="{{i.TELEPON}}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Handphone</td>
+                                                                    <td colspan="2">
+                                                                        <input #handphone class="form-control" type="number" name="handphone" id="handphone" value="{{i.HANDPHONE}}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Agama</td>
+                                                                    <td colspan="2">
+                                                                        <select class="form-control" (change)="onAgama($event)">
+                                                                            <option selected value="{{i.AGAMA}}">{{i.AGAMA}}</option>
+                                                                            <option value="">Pilih Agama</option>
+                                                                            <option *ngFor="let i of agama" value="{{i.AGAMA}}">{{i.AGAMA}}</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Pendidikan</td>
+                                                                    <td colspan="2">
+                                                                        <select class="form-control" (change)="onPendidikan($event)">
+                                                                            <option selected value="{{i.PENDIDIKAN}}">{{i.PENDIDIKAN}}</option>
+                                                                            <option value="">Pilih Pendidikan</option>
+                                                                            <option *ngFor="let i of pendidikan" value="{{i.PENDIDIKAN}}">{{i.PENDIDIKAN}}</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Pekerjaan</td>
+                                                                    <td colspan="2">
+                                                                        <select class="form-control" (change)="onPekerjaan($event)">
+                                                                            <option selected value="{{i.PEKERJAAN}}">{{i.PEKERJAAN}}</option>
+                                                                            <option value="">Pilih Pekerjaan</option>
+                                                                            <option *ngFor="let i of pekerjaan" value="{{i.PEKERJAAN}}">{{i.PEKERJAAN}}</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Jabatan</td>
+                                                                    <td colspan="2">
+                                                                        <select class="form-control" (change)="onJabatan($event)">
+                                                                            <option selected value="{{i.JABATAN}}">{{i.JABATAN}}</option>
+                                                                            <option value="">Pilih Jabatan</option>
+                                                                            <option *ngFor="let i of jabatan" value="{{i.JABATAN}}">{{i.JABATAN}}</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Golongan</td>
+                                                                    <td colspan="2">
+                                                                        <select class="form-control" (change)="onGolongan($event)">
+                                                                            <option selected value="{{i.GOLONGAN}}">{{i.GOLONGAN}}</option>
+                                                                            <option value="">Pilih Golongan</option>
+                                                                            <option *ngFor="let i of golongan" value="{{i.GOLONGAN}}">{{i.GOLONGAN}}</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Email</td>
+                                                                    <td colspan="2">
+                                                                        <input #email class="form-control" type="email" name="email" id="email" value="{{i.E_MAIL}}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Nama Ahli Waris</td>
+                                                                    <td colspan="2">
+                                                                        <input #namaahliwaris class="form-control" type="text" name="namaahliwaris" id="namaahliwaris" value="{{i.NAMAAHLIWARIS}}">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Alamat Ahli Waris</td>
+                                                                    <td colspan="2">
+                                                                        <textarea #alamatahliwaris class="form-control" type="text" name="almt" id="almt" value="{{i.ALAMATAHLIWARIS}}"></textarea>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Hubungan Keluarga</td>
+                                                                    <td colspan="2">
+                                                                        <select class="form-control" (change)="onHubkel($event) ">
+                                                                            <option selected value="{{i.HUBKEL}}">{{i.HUBKEL}}</option>
+                                                                            <option value="">Pilih Hub Keluarga</option>
+                                                                            <option *ngFor="let i of hubkeluarga" value="{{i.HUBKELUARGA}}">{{i.HUBKELUARGA}}</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Status Approval</td>
+                                                                    <td>{{i.ST}}</td>
+                                                                    <td>0 Belom Approve 2 Sudah di Approve</td>
+                                                                    <input #id type="text" name="id" id="id" value="{{i._id}}" hidden>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success fa fa-save" (click)="update($event, nomeranggota.value, kartuanggota.value, nip.value, nomergaji.value, namalengkap.value,
+                              namapanggilan.value, tempattgllahir.value, tgllahir.value, tglberakhir.value, alamat.value, telepon.value, handphone.value, email.value, namaahliwaris.value, alamatahliwaris.value, id.value)"
+                                                    (click)="c('Close click')"> Update</button>
+                                                <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
+                                            </div>
+                                        </ng-template>
+                                        <button class="btn btn-danger fa fa-trash" (click)="hapus(Hapus)"></button>
+                                        <ng-template #Hapus let-c="close" let-d="dismiss">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Pemberitahuan</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Yakin menghapus data ?</p>
+                                                <!-- <input #id type="text" name="id" id="id" value="{{i._id}}" hidden> -->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Batal</button>
+                                                <button type="button" class="btn btn-primary" (click)="delete($event, id.value)" (click)="c('Close click')">OK</button>
+                                            </div>
+                                        </ng-template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

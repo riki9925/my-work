@@ -1,0 +1,527 @@
+<div [@routerTransition]>
+    <div class="content">
+        <jaspero-alerts [defaultSettings]="option"></jaspero-alerts>
+        <div class="form-group">
+            <button class="btn btn-primary fa fa-plus" (click)="open(addIdentitas)"> Registrasi</button>
+            <ng-template #addIdentitas let-c="close" let-d="dismiss">
+            <div role="document" class="modal-lg">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah CIF</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <table class="table responsive table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>Nama Client</td>
+                                        <td>
+                                            <input #namaklient class="form-control" type="text" name="ki" id="ki">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status mitra</td>
+                                        <td>
+                                            <input #statusmitra class="form-control" type="text" name="ni" id="ni" disabled>
+                                        </td>
+                                        <td style="color:red"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alamat</td>
+                                        <td>
+                                            <input #alamat class="form-control" type="text" name="telepon" id="telepon">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. SPK</td>
+                                        <td>
+                                            <input #spk class="form-control" type="text" name="handphone" id="handphone">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cabang</td>
+                                        <td>
+                                            <select class="form-control" (change)="onCabang($event)">
+                                                <option selected value="">Pilih Cabang</option>
+                                                <option *ngFor="let i of cabang" value="{{i.IDCAB}}">{{i.ALAMAT_CABANG | uppercase}}</option>
+                                            </select>
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Akta</td>
+                                        <td>
+                                            <input #akta class="form-control" type="text" name="namabendahara" id="namabendahara">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Longitude</td>
+                                        <td>
+                                            <input #long class="form-control" type="text" name="tb" id="tb">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lattitude</td>
+                                        <td>
+                                            <input #latt class="form-control" type="text" name="tb" id="tb">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>No. Telepon</td>
+                                        <td>
+                                            <input #telepon class="form-control" type="number" name="tb" id="tb">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>
+                                            <input #email class="form-control" type="email" name="tb" id="tb">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-4">
+                            <table class="table responsive table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>Provinsi</td>
+                                        <td>
+                                            <select class="form-control" (change)="changeProp($event)">
+                                                <option selected value="">Pilih Provinsi</option>
+                                                <option #propinsi *ngFor="let i of propinsi" value="{{i.ID_PROP}}">{{i.NAMA_PROPINSI | uppercase}}</option>
+                                            </select>
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kabupaten</td>
+                                        <td>
+                                            <select class="form-control" (change)="changeKab($event)">
+                                                <option value="">Pilih Kabupaten</option>
+                                                <option #kabupaten *ngFor="let i of kabupaten" value="{{i.ID_KAB}}">{{i.NAMA_KABUPATEN | uppercase}}</option>
+                                            </select>
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kecamatan</td>
+                                        <td>
+                                            <select class="form-control" (change)="changeKec($event)">
+                                                <option value="">Pilih Kecamatan</option>
+                                                <option *ngFor="let i of kecamatan" value="{{i.ID_KEC}}">{{i.NAMA_KECAMATAN | uppercase}}</option>
+                                            </select>
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kelurahan</td>
+                                        <td>
+                                            <select class="form-control" (change)="changeKel($event)">
+                                                <option value="">Pilih Kelurahan</option>
+                                                <option *ngFor="let i of kelurahan" value="{{i.ID_KEL}}">{{i.NAMA_KELURAHAN | uppercase}}</option>
+                                            </select>
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nama ketua</td>
+                                        <td>
+                                            <input #namaketua class="form-control" type="text" name="alamat" id="alamat">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telepon ketua</td>
+                                        <td>
+                                            <input #teleponketua class="form-control" type="text" name="namabendahara" id="namabendahara">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wakil ketua</td>
+                                        <td>
+                                            <input #wakilketua class="form-control" type="text" name="tb" id="tb">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telepon wakil ketua</td>
+                                        <td>
+                                            <input #teleponwakilketua class="form-control" type="text" name="tb" id="tb">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bendahara</td>
+                                        <td>
+                                            <input #bendahara class="form-control" type="text" name="tb" id="tb">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telepon Bendahara</td>
+                                        <td>
+                                            <input #teleponbendahara class="form-control" type="number" name="tb" id="tb">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-4">
+                            <table class="table responsive table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td>Nama PIC</td>
+                                        <td>
+                                            <input #namapic class="form-control" type="text" name="ki" id="ki">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telepon PIC</td>
+                                        <td>
+                                            <input #teleponpic class="form-control" type="number" name="ni" id="ni">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email PIC</td>
+                                        <td>
+                                            <input #emailpic class="form-control" type="email" name="telepon" id="telepon">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jumlah anggota</td>
+                                        <td>
+                                            <input #jumlahanggota class="form-control" type="number" name="handphone" id="handphone">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>IP address</td>
+                                        <td>
+                                            <input #ipaddress class="form-control" type="number" name="alamat" id="alamat">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tanggal cut off</td>
+                                        <td>
+                                            <input #tanggalcutoff class="form-control" type="date" name="namabendahara" id="namabendahara">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Website</td>
+                                        <td>
+                                            <input #website class="form-control" type="text" name="tb" id="tb">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kode pos</td>
+                                        <td>
+                                            <input #kodepos class="form-control" type="number" name="tb" id="tb">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fax</td>
+                                        <td>
+                                            <input #fax class="form-control" type="text" name="tb" id="tb">
+                                        </td>
+                                        <td style="color:red">*</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success fa fa-save" (click)="tambah($event, namaklient.value, statusmitra.value, alamat.value, spk.value, akta.value, long.value, latt.value, telepon.value, email.value, namaketua.value, teleponketua.value, wakilketua.value, teleponwakilketua.value, bendahara.value, teleponbendahara.value, namapic.value, teleponpic.value, emailpic.value, jumlahanggota.value, ipaddress.value, tanggalcutoff.value, website.value, kodepos.value, fax.value)"
+                        (click)="c('Close click')"> Simpan</button>
+                    <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
+                </div>
+            </div>
+            </ng-template>
+        </div>
+        <div class="card mb-3 col-md-12">
+            <div class="card-header">Data Instansi</div>
+            <div class="card-block table-responsive">
+                <div class="row">
+                    <div class="col-md-12" style="height:340px;">
+                        <table class="table table-responsive table-sm">
+                            <thead>
+                                <th style="width:260px">Nama Client</th>
+                                <th style="width:100px">No Spk</th>
+                                <th style="width:300px">Alamat</th>
+                                <th style="width:120px">Telepon</th>
+                                <th>Anggota</th>
+                                <th style="width:120px">IP Address</th>
+                                <th style="width:120px">TGL CUTOFF</th>
+                                <!-- <th>Cif</th> -->
+                                <th class="text-right" style="width:360px"></th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let i of data">
+                                    <td>{{i.NAMA_CLIENT}}</td>
+                                    <td>{{i.NO_SPK}}</td>
+                                    <td>{{i.ALAMAT}}</td>
+                                    <td>{{i.TELEPON}}</td>
+                                    <td>{{i.ANGGOTA}}</td>
+                                    <td>{{i.IP_ADDRESS}}</td>
+                                    <td>{{i.TGL_CUTOFF}}</td>
+                                    <!-- <td>{{i.CIF}}</td> -->
+                                    <td class="text-right">
+                                        <input #id type="text" name="id" id="id" value="{{i._id}}" hidden>
+                                        <button class="fa fa-edit btn btn-primary" (click)="edit(addIdentitas)"></button>
+                                        <ng-template #Edit let-c="close" let-d="dismiss">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Edit</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <table class="table responsive table-sm">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Nama Client</td>
+                                                                    <td><input #namaklient class="form-control" type="text" name="ki" id="ki" value="{{i.NAMA_CLENT}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Status mitra</td>
+                                                                    <td><input #statusmitra class="form-control" type="text" name="ni" id="ni" disabled value="{{i.ST}}"></td>
+                                                                    <td style="color:red"></td>                                        
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Alamat</td>
+                                                                    <td><input #alamat class="form-control" type="text" name="telepon" id="telepon" value="{{i.ALAMAT}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>No. SPK</td>
+                                                                    <td><input #spk class="form-control" type="text" name="handphone" id="handphone" value="{{i.NO_SPK}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Cabang</td>
+                                                                    <td><select class="form-control" (change)="onCabang($event)">
+                                                                        <option value="">Pilih Cabang</option>
+                                                                        <option *ngFor="let a of cabang" value="{{a.IDCAB}}">{{a.ALAMAT_CABANG | uppercase}}</option>
+                                                                    </select></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Akta</td>
+                                                                    <td><input #akta class="form-control" type="text" name="namabendahara" id="namabendahara" value="{{i.AKTA}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Longitude</td>
+                                                                    <td><input #long class="form-control" type="text" name="tb" id="tb" value="{{i.LONGITUDE}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Lattitude</td>
+                                                                    <td><input #latt class="form-control" type="text" name="tb" id="tb" value="{{i.LATTITUDE}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>No. Telepon</td>
+                                                                    <td><input #telepon class="form-control" type="number" name="tb" id="tb" value="{{i.TELEPON}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Email</td>
+                                                                    <td><input #email class="form-control" type="email" name="tb" id="tb" value="{{i.EMAIL}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <table class="table responsive table-sm">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Provinsi</td>
+                                                                    <td>
+                                                                        <select class="form-control" (change)="changeProp($event)">
+                                                                            <option value="">Pilih Provinsi</option>
+                                                                            <option #propinsi *ngFor="let i of propinsi" value="{{i.ID_PROP}}">{{i.NAMA_PROPINSI | uppercase}}</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Kabupaten</td>
+                                                                    <td>
+                                                                        <select class="form-control" (change)="changeKab($event)">
+                                                                            <option value="">Pilih Kabupaten</option>
+                                                                            <option #kabupaten *ngFor="let i of kabupaten" value="{{i.ID_KAB}}">{{i.NAMA_KABUPATEN | uppercase}}</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Kecamatan</td>
+                                                                    <td>
+                                                                        <select class="form-control" (change)="changeKec($event)">
+                                                                            <option value="">Pilih Kecamatan</option>
+                                                                            <option *ngFor="let i of kecamatan" value="{{i.ID_KEC}}">{{i.NAMA_KECAMATAN | uppercase}}</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Kelurahan</td>
+                                                                    <td>
+                                                                        <select class="form-control" (change)="changeKel($event)">
+                                                                            <option value="">Pilih Kelurahan</option>
+                                                                            <option *ngFor="let i of kelurahan" value="{{i.ID_KEL}}">{{i.NAMA_KELURAHAN | uppercase}}</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Nama ketua</td>
+                                                                    <td><input #namaketua class="form-control" type="text" name="alamat" id="alamat" value="{{i.NAMA_KETUA}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Telepon ketua</td>
+                                                                    <td><input #teleponketua class="form-control" type="text" name="namabendahara" id="namabendahara" value="{{i.TELEPON_KETUA}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Wakil ketua</td>
+                                                                    <td><input #wakilketua class="form-control" type="text" name="tb" id="tb" value="{{i.NAMA_WAKIL_KETUA}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Telepon wakil ketua</td>
+                                                                    <td><input #teleponwakilketua class="form-control" type="text" name="tb" id="tb" value="{{i.TELEPON_WAKIL_KETUA}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Bendahara</td>
+                                                                    <td><input #bendahara class="form-control" type="text" name="tb" id="tb" value="{{i.NAMA_BENDAHARA}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Telepon Bendahara</td>
+                                                                    <td><input #teleponbendahara class="form-control" type="number" name="tb" id="tb" value="{{i.TELEPON_BENDAHARA}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <table class="table responsive table-sm">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Nama PIC</td>
+                                                                    <td><input #namapic class="form-control" type="text" name="ki" id="ki" value="{{i.NAMA_PIC}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Telepon PIC</td>
+                                                                    <td><input #teleponpic class="form-control" type="number" name="ni" id="ni" value="{{i.TELEPON_PIC}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Email PIC</td>
+                                                                    <td><input #emailpic class="form-control" type="email" name="telepon" id="telepon" value="{{i.EMAIL_PIC}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Jumlah anggota</td>
+                                                                    <td><input #jumlahanggota class="form-control" type="number" name="handphone" id="handphone" value="{{i.ANGGOTA}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>IP address</td>
+                                                                    <td><input #ipaddress class="form-control" type="number" name="alamat" id="alamat" value="{{i.IP_ADDRESS}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Tanggal cut off</td>
+                                                                    <td><input #tanggalcutoff class="form-control" type="date" name="namabendahara" id="namabendahara" value="{{i.TGL_CUTOFF}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Website</td>
+                                                                    <td><input #website class="form-control" type="text" name="tb" id="tb" value="{{i.WEBSITE}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Kode pos</td>
+                                                                    <td><input #kodepos class="form-control" type="number" name="tb" id="tb" value="{{i.KODE_POS}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Fax</td>
+                                                                    <td><input #fax class="form-control" type="text" name="tb" id="tb" value="{{i.FAX}}"></td>
+                                                                    <td style="color:red">*</td>
+                                                                    <input #id type="text" name="id" id="id" value="{{i._id}}" hidden>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success fa fa-save" (click)="update($event, namaklient.value, statusmitra.value, alamat.value, spk.value, akta.value, long.value, latt.value, telepon.value, email.value, namaketua.value, teleponketua.value, wakilketua.value, teleponwakilketua.value, bendahara.value, teleponbendahara.value, namapic.value, teleponpic.value, emailpic.value, jumlahanggota.value, ipaddress.value, tanggalcutoff.value, website.value, kodepos.value, fax.value, id.value)"
+                                                    (click)="c('Close click')"> Update</button>
+                                                <!-- <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button> -->
+                                            </div>
+                                        </ng-template>
+                                        <button class="btn btn-danger fa fa-trash" (click)="hapus(Hapus)"></button>
+                                        <ng-template #Hapus let-c="close" let-d="dismiss">
+                                                <div role="document" class="modal-sm">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Pemberitahuan</h4>
+                                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Yakin menghapus instansi {{i.NAMA_INSTANSI}} ?</p>
+                                                <input #id type="text" name="id" id="id" value="{{i._id}}" hidden>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Batal</button>
+                                                <button type="button" class="btn btn-primary" (click)="delete($event, id.value)" (click)="c('Close click')">OK</button>
+                                            </div>
+                                                </div>
+                                        </ng-template>
+                                        <button class="btn btn-success fa fa-check" (click)="approve($event, id.value)"></button>
+                                        <button class="btn btn-danger fa fa-ban" (click)="nonaktif($event, id.value)"></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
